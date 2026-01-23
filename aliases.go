@@ -1,0 +1,16 @@
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+package camara
+
+import (
+	"github.com/stainless-sdks/camara-go/internal/apierror"
+	"github.com/stainless-sdks/camara-go/packages/param"
+)
+
+// aliased to make [param.APIUnion] private when embedding
+type paramUnion = param.APIUnion
+
+// aliased to make [param.APIObject] private when embedding
+type paramObj = param.APIObject
+
+type Error = apierror.Error
