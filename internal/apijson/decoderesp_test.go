@@ -2,8 +2,8 @@ package apijson_test
 
 import (
 	"encoding/json"
-	"github.com/stainless-sdks/camara-go/internal/apijson"
-	"github.com/stainless-sdks/camara-go/packages/respjson"
+	"github.com/andreibesleaga/camara-go/internal/apijson"
+	"github.com/andreibesleaga/camara-go/packages/respjson"
 	"testing"
 )
 

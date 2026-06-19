@@ -18,10 +18,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/stainless-sdks/camara-go/internal"
-	"github.com/stainless-sdks/camara-go/internal/apierror"
-	"github.com/stainless-sdks/camara-go/internal/apiform"
-	"github.com/stainless-sdks/camara-go/internal/apiquery"
+	"github.com/andreibesleaga/camara-go/internal"
+	"github.com/andreibesleaga/camara-go/internal/apierror"
+	"github.com/andreibesleaga/camara-go/internal/apiform"
+	"github.com/andreibesleaga/camara-go/internal/apiquery"
 )
 
 func getDefaultHeaders() map[string]string {

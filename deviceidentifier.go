@@ -10,12 +10,12 @@ import (
 	"slices"
 	"time"
 
-	"github.com/stainless-sdks/camara-go/internal/apijson"
-	shimjson "github.com/stainless-sdks/camara-go/internal/encoding/json"
-	"github.com/stainless-sdks/camara-go/internal/requestconfig"
-	"github.com/stainless-sdks/camara-go/option"
-	"github.com/stainless-sdks/camara-go/packages/param"
-	"github.com/stainless-sdks/camara-go/packages/respjson"
+	"github.com/andreibesleaga/camara-go/internal/apijson"
+	shimjson "github.com/andreibesleaga/camara-go/internal/encoding/json"
+	"github.com/andreibesleaga/camara-go/internal/requestconfig"
+	"github.com/andreibesleaga/camara-go/option"
+	"github.com/andreibesleaga/camara-go/packages/param"
+	"github.com/andreibesleaga/camara-go/packages/respjson"
 )
 
 // Device Identifier

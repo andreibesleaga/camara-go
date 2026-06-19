@@ -2,7 +2,7 @@
 package json
 
 import (
-	"github.com/stainless-sdks/camara-go/internal/encoding/json/shims"
+	"github.com/andreibesleaga/camara-go/internal/encoding/json/shims"
 	"reflect"
 	"time"
 )

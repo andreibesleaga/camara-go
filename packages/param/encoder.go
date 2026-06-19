@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	shimjson "github.com/stainless-sdks/camara-go/internal/encoding/json"
+	shimjson "github.com/andreibesleaga/camara-go/internal/encoding/json"
 
 	"github.com/tidwall/sjson"
 )

@@ -9,11 +9,11 @@ import (
 	"slices"
 	"time"
 
-	"github.com/stainless-sdks/camara-go/internal/apijson"
-	"github.com/stainless-sdks/camara-go/internal/requestconfig"
-	"github.com/stainless-sdks/camara-go/option"
-	"github.com/stainless-sdks/camara-go/packages/param"
-	"github.com/stainless-sdks/camara-go/packages/respjson"
+	"github.com/andreibesleaga/camara-go/internal/apijson"
+	"github.com/andreibesleaga/camara-go/internal/requestconfig"
+	"github.com/andreibesleaga/camara-go/option"
+	"github.com/andreibesleaga/camara-go/packages/param"
+	"github.com/andreibesleaga/camara-go/packages/respjson"
 )
 
 // Know Your Customer Match

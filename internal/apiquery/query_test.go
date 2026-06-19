@@ -1,7 +1,7 @@
 package apiquery
 
 import (
-	"github.com/stainless-sdks/camara-go/packages/param"
+	"github.com/andreibesleaga/camara-go/packages/param"
 	"net/url"
 	"testing"
 	"time"

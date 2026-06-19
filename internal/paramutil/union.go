@@ -2,7 +2,7 @@ package paramutil
 
 import (
 	"fmt"
-	"github.com/stainless-sdks/camara-go/packages/param"
+	"github.com/andreibesleaga/camara-go/packages/param"
 	"reflect"
 )
 
