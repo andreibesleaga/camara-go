@@ -15,6 +15,8 @@ import (
 	"github.com/stainless-sdks/camara-go/packages/respjson"
 )
 
+// Customer Insights
+//
 // CustomerinsightScoringService contains methods and other services that help with
 // interacting with the camara API.
 //
@@ -39,12 +41,12 @@ func NewCustomerinsightScoringService(opts ...option.RequestOption) (r Customeri
 // allows to select the type of the Scoring scale measurement.
 func (r *CustomerinsightScoringService) Get(ctx context.Context, params CustomerinsightScoringGetParams, opts ...option.RequestOption) (res *CustomerinsightScoringGetResponse, err error) {
 	if !param.IsOmitted(params.XCorrelator) {
-		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%s", params.XCorrelator.Value)))
+		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%v", params.XCorrelator.Value)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	path := "customerinsights/scoring/retrieve"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Scoring information based on the individual's profile owned by a Telco Operator.
@@ -57,10 +59,10 @@ type CustomerinsightScoringGetResponse struct {
 	// - `veritasIndex`: ranges from index 0 (lowest risk) to index 19 (highest risk)
 	//
 	// Any of "gaugeMetric", "veritasIndex".
-	ScoringType CustomerinsightScoringGetResponseScoringType `json:"scoringType,required"`
+	ScoringType CustomerinsightScoringGetResponseScoringType `json:"scoringType" api:"required"`
 	// Result of the Scoring analysis expressed in the measure indicated in the
 	// `scoringType` field.
-	ScoringValue int64 `json:"scoringValue,required"`
+	ScoringValue int64 `json:"scoringValue" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ScoringType  respjson.Field

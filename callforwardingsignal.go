@@ -4,7 +4,6 @@ package camara
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"net/http"
 	"slices"
@@ -17,6 +16,8 @@ import (
 	"github.com/stainless-sdks/camara-go/packages/respjson"
 )
 
+// Call Forwarding Signal
+//
 // CallforwardingsignalService contains methods and other services that help with
 // interacting with the camara API.
 //
@@ -42,24 +43,24 @@ func NewCallforwardingsignalService(opts ...option.RequestOption) (r Callforward
 // Signal API, for this reason an error code 501 can be returned.
 func (r *CallforwardingsignalService) CheckActiveForwardings(ctx context.Context, params CallforwardingsignalCheckActiveForwardingsParams, opts ...option.RequestOption) (res *[]CallforwardingsignalCheckActiveForwardingsResponse, err error) {
 	if !param.IsOmitted(params.XCorrelator) {
-		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%s", params.XCorrelator.Value)))
+		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%v", params.XCorrelator.Value)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	path := "callforwardingsignal/call-forwardings"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // This endpoint provides information about the status of the unconditional call
 // forwarding, being active or not.
 func (r *CallforwardingsignalService) CheckUnconditionalForwarding(ctx context.Context, params CallforwardingsignalCheckUnconditionalForwardingParams, opts ...option.RequestOption) (res *CallforwardingsignalCheckUnconditionalForwardingResponse, err error) {
 	if !param.IsOmitted(params.XCorrelator) {
-		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%s", params.XCorrelator.Value)))
+		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%v", params.XCorrelator.Value)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	path := "callforwardingsignal/unconditional-call-forwardings"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // resource containing the phone number (PhoneNumber) regarding which the Call
@@ -126,7 +127,7 @@ func (r CallforwardingsignalCheckActiveForwardingsParams) MarshalJSON() (data []
 	return shimjson.Marshal(r.CreateCallForwardingSignal)
 }
 func (r *CallforwardingsignalCheckActiveForwardingsParams) UnmarshalJSON(data []byte) error {
-	return json.Unmarshal(data, &r.CreateCallForwardingSignal)
+	return apijson.UnmarshalRoot(data, r)
 }
 
 type CallforwardingsignalCheckUnconditionalForwardingParams struct {
@@ -143,5 +144,5 @@ func (r CallforwardingsignalCheckUnconditionalForwardingParams) MarshalJSON() (d
 	return shimjson.Marshal(r.CreateCallForwardingSignal)
 }
 func (r *CallforwardingsignalCheckUnconditionalForwardingParams) UnmarshalJSON(data []byte) error {
-	return json.Unmarshal(data, &r.CreateCallForwardingSignal)
+	return apijson.UnmarshalRoot(data, r)
 }

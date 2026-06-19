@@ -14,7 +14,7 @@ import (
 )
 
 func TestDeviceidentifierGetIdentifierWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -24,6 +24,27 @@ func TestDeviceidentifierGetIdentifierWithOptionalParams(t *testing.T) {
 	}
 	client := camara.NewClient(
 		option.WithBaseURL(baseURL),
+		option.WithBearerToken("My Bearer Token"),
+		option.WithCustomerInsightsToken("My Customer Insights Token"),
+		option.WithDeviceSwapToken("My Device Swap Token"),
+		option.WithKYCAgeVerificationToken("My KYC Age Verification Token"),
+		option.WithKYCFillInToken("My KYC Fill In Token"),
+		option.WithKYCMatchToken("My KYC Match Token"),
+		option.WithTenureToken("My Tenure Token"),
+		option.WithNumberRecyclingToken("My Number Recycling Token"),
+		option.WithOtpValidationToken("My Otp Validation Token"),
+		option.WithCallForwardingSignalToken("My Call Forwarding Signal Token"),
+		option.WithDeviceLocationToken("My Device Location Token"),
+		option.WithPopulationDensityDataToken("My Population Density Data Token"),
+		option.WithRegionDeviceCountToken("My Region Device Count Token"),
+		option.WithWebRtcToken("My Web Rtc Token"),
+		option.WithConnectivityInsightsToken("My Connectivity Insights Token"),
+		option.WithQualityOnDemandToken("My Quality On Demand Token"),
+		option.WithDeviceIdentifierToken("My Device Identifier Token"),
+		option.WithSimSwapToken("My Sim Swap Token"),
+		option.WithDeviceRoamingStatusToken("My Device Roaming Status Token"),
+		option.WithDeviceReachabilityStatusToken("My Device Reachability Status Token"),
+		option.WithConnectedNetworkTypeToken("My Connected Network Type Token"),
 		option.WithDeviceLocationNotificationsAPIKey("My Device Location Notifications API Key"),
 		option.WithNotificationsAPIKey("My Notifications API Key"),
 		option.WithPopulationDensityDataNotificationsAPIKey("My Population Density Data Notifications API Key"),
@@ -36,8 +57,8 @@ func TestDeviceidentifierGetIdentifierWithOptionalParams(t *testing.T) {
 	)
 	_, err := client.Deviceidentifier.GetIdentifier(context.TODO(), camara.DeviceidentifierGetIdentifierParams{
 		DeviceIdentifierRequestBody: camara.DeviceIdentifierRequestBodyParam{
-			Device: camara.DeviceIdentifierRequestBodyDeviceParam{
-				Ipv4Address: camara.DeviceIdentifierRequestBodyDeviceIpv4AddressParam{
+			Device: camara.DeviceIdentifierDeviceParam{
+				Ipv4Address: camara.DeviceIdentifierDeviceIpv4AddrParam{
 					PrivateAddress: camara.String("84.125.93.10"),
 					PublicAddress:  camara.String("84.125.93.10"),
 					PublicPort:     camara.Int(59765),
@@ -59,7 +80,7 @@ func TestDeviceidentifierGetIdentifierWithOptionalParams(t *testing.T) {
 }
 
 func TestDeviceidentifierGetPpidWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -69,6 +90,27 @@ func TestDeviceidentifierGetPpidWithOptionalParams(t *testing.T) {
 	}
 	client := camara.NewClient(
 		option.WithBaseURL(baseURL),
+		option.WithBearerToken("My Bearer Token"),
+		option.WithCustomerInsightsToken("My Customer Insights Token"),
+		option.WithDeviceSwapToken("My Device Swap Token"),
+		option.WithKYCAgeVerificationToken("My KYC Age Verification Token"),
+		option.WithKYCFillInToken("My KYC Fill In Token"),
+		option.WithKYCMatchToken("My KYC Match Token"),
+		option.WithTenureToken("My Tenure Token"),
+		option.WithNumberRecyclingToken("My Number Recycling Token"),
+		option.WithOtpValidationToken("My Otp Validation Token"),
+		option.WithCallForwardingSignalToken("My Call Forwarding Signal Token"),
+		option.WithDeviceLocationToken("My Device Location Token"),
+		option.WithPopulationDensityDataToken("My Population Density Data Token"),
+		option.WithRegionDeviceCountToken("My Region Device Count Token"),
+		option.WithWebRtcToken("My Web Rtc Token"),
+		option.WithConnectivityInsightsToken("My Connectivity Insights Token"),
+		option.WithQualityOnDemandToken("My Quality On Demand Token"),
+		option.WithDeviceIdentifierToken("My Device Identifier Token"),
+		option.WithSimSwapToken("My Sim Swap Token"),
+		option.WithDeviceRoamingStatusToken("My Device Roaming Status Token"),
+		option.WithDeviceReachabilityStatusToken("My Device Reachability Status Token"),
+		option.WithConnectedNetworkTypeToken("My Connected Network Type Token"),
 		option.WithDeviceLocationNotificationsAPIKey("My Device Location Notifications API Key"),
 		option.WithNotificationsAPIKey("My Notifications API Key"),
 		option.WithPopulationDensityDataNotificationsAPIKey("My Population Density Data Notifications API Key"),
@@ -81,8 +123,8 @@ func TestDeviceidentifierGetPpidWithOptionalParams(t *testing.T) {
 	)
 	_, err := client.Deviceidentifier.GetPpid(context.TODO(), camara.DeviceidentifierGetPpidParams{
 		DeviceIdentifierRequestBody: camara.DeviceIdentifierRequestBodyParam{
-			Device: camara.DeviceIdentifierRequestBodyDeviceParam{
-				Ipv4Address: camara.DeviceIdentifierRequestBodyDeviceIpv4AddressParam{
+			Device: camara.DeviceIdentifierDeviceParam{
+				Ipv4Address: camara.DeviceIdentifierDeviceIpv4AddrParam{
 					PrivateAddress: camara.String("84.125.93.10"),
 					PublicAddress:  camara.String("84.125.93.10"),
 					PublicPort:     camara.Int(59765),
@@ -104,7 +146,7 @@ func TestDeviceidentifierGetPpidWithOptionalParams(t *testing.T) {
 }
 
 func TestDeviceidentifierGetTypeWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -114,6 +156,27 @@ func TestDeviceidentifierGetTypeWithOptionalParams(t *testing.T) {
 	}
 	client := camara.NewClient(
 		option.WithBaseURL(baseURL),
+		option.WithBearerToken("My Bearer Token"),
+		option.WithCustomerInsightsToken("My Customer Insights Token"),
+		option.WithDeviceSwapToken("My Device Swap Token"),
+		option.WithKYCAgeVerificationToken("My KYC Age Verification Token"),
+		option.WithKYCFillInToken("My KYC Fill In Token"),
+		option.WithKYCMatchToken("My KYC Match Token"),
+		option.WithTenureToken("My Tenure Token"),
+		option.WithNumberRecyclingToken("My Number Recycling Token"),
+		option.WithOtpValidationToken("My Otp Validation Token"),
+		option.WithCallForwardingSignalToken("My Call Forwarding Signal Token"),
+		option.WithDeviceLocationToken("My Device Location Token"),
+		option.WithPopulationDensityDataToken("My Population Density Data Token"),
+		option.WithRegionDeviceCountToken("My Region Device Count Token"),
+		option.WithWebRtcToken("My Web Rtc Token"),
+		option.WithConnectivityInsightsToken("My Connectivity Insights Token"),
+		option.WithQualityOnDemandToken("My Quality On Demand Token"),
+		option.WithDeviceIdentifierToken("My Device Identifier Token"),
+		option.WithSimSwapToken("My Sim Swap Token"),
+		option.WithDeviceRoamingStatusToken("My Device Roaming Status Token"),
+		option.WithDeviceReachabilityStatusToken("My Device Reachability Status Token"),
+		option.WithConnectedNetworkTypeToken("My Connected Network Type Token"),
 		option.WithDeviceLocationNotificationsAPIKey("My Device Location Notifications API Key"),
 		option.WithNotificationsAPIKey("My Notifications API Key"),
 		option.WithPopulationDensityDataNotificationsAPIKey("My Population Density Data Notifications API Key"),
@@ -126,8 +189,8 @@ func TestDeviceidentifierGetTypeWithOptionalParams(t *testing.T) {
 	)
 	_, err := client.Deviceidentifier.GetType(context.TODO(), camara.DeviceidentifierGetTypeParams{
 		DeviceIdentifierRequestBody: camara.DeviceIdentifierRequestBodyParam{
-			Device: camara.DeviceIdentifierRequestBodyDeviceParam{
-				Ipv4Address: camara.DeviceIdentifierRequestBodyDeviceIpv4AddressParam{
+			Device: camara.DeviceIdentifierDeviceParam{
+				Ipv4Address: camara.DeviceIdentifierDeviceIpv4AddrParam{
 					PrivateAddress: camara.String("84.125.93.10"),
 					PublicAddress:  camara.String("84.125.93.10"),
 					PublicPort:     camara.Int(59765),

@@ -18,6 +18,8 @@ import (
 	"github.com/stainless-sdks/camara-go/packages/respjson"
 )
 
+// Connectivity Insights Subscriptions
+//
 // ConnectivityinsightSubscriptionService contains methods and other services that
 // help with interacting with the camara API.
 //
@@ -40,54 +42,54 @@ func NewConnectivityinsightSubscriptionService(opts ...option.RequestOption) (r 
 // Create a Connectivity insights subscription for a device
 func (r *ConnectivityinsightSubscriptionService) New(ctx context.Context, params ConnectivityinsightSubscriptionNewParams, opts ...option.RequestOption) (res *Subscription, err error) {
 	if !param.IsOmitted(params.XCorrelator) {
-		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%s", params.XCorrelator.Value)))
+		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%v", params.XCorrelator.Value)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	path := "connectivityinsights/subscriptions"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Retrieve a given subscription by ID
 func (r *ConnectivityinsightSubscriptionService) Get(ctx context.Context, subscriptionID string, query ConnectivityinsightSubscriptionGetParams, opts ...option.RequestOption) (res *Subscription, err error) {
 	if !param.IsOmitted(query.XCorrelator) {
-		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%s", query.XCorrelator.Value)))
+		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%v", query.XCorrelator.Value)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	if subscriptionID == "" {
 		err = errors.New("missing required subscriptionId parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("connectivityinsights/subscriptions/%s", subscriptionID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Operation to list subscriptions authorized to be retrieved by the provided
 // access token.
 func (r *ConnectivityinsightSubscriptionService) List(ctx context.Context, query ConnectivityinsightSubscriptionListParams, opts ...option.RequestOption) (res *[]Subscription, err error) {
 	if !param.IsOmitted(query.XCorrelator) {
-		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%s", query.XCorrelator.Value)))
+		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%v", query.XCorrelator.Value)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	path := "connectivityinsights/subscriptions"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Delete a given subscription by ID
 func (r *ConnectivityinsightSubscriptionService) Delete(ctx context.Context, subscriptionID string, body ConnectivityinsightSubscriptionDeleteParams, opts ...option.RequestOption) (res *ConnectivityinsightSubscriptionDeleteResponse, err error) {
 	if !param.IsOmitted(body.XCorrelator) {
-		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%s", body.XCorrelator.Value)))
+		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%v", body.XCorrelator.Value)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	if subscriptionID == "" {
 		err = errors.New("missing required subscriptionId parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("connectivityinsights/subscriptions/%s", subscriptionID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Implementation-specific configuration parameters needed by the subscription
@@ -98,7 +100,7 @@ func (r *ConnectivityinsightSubscriptionService) Delete(ctx context.Context, sub
 // parameters.
 type Config struct {
 	// The detail of the requested event subscription
-	SubscriptionDetail ConfigSubscriptionDetail `json:"subscriptionDetail,required"`
+	SubscriptionDetail ConfigSubscriptionDetail `json:"subscriptionDetail" api:"required"`
 	// Set to `true` by API consumer if consumer wants to get an event as soon as the
 	// subscription is created and current situation reflects event request.
 	InitialEvent bool `json:"initialEvent"`
@@ -142,7 +144,7 @@ func (r Config) ToParam() ConfigParam {
 // The detail of the requested event subscription
 type ConfigSubscriptionDetail struct {
 	// Identifier for the Application Profile
-	ApplicationProfileID string `json:"applicationProfileId,required" format:"uuid"`
+	ApplicationProfileID string `json:"applicationProfileId" api:"required" format:"uuid"`
 	// End-user equipment able to connect to a mobile network. Examples of devices
 	// include smartphones or IoT sensors/actuators. The developer can choose to
 	// provide the below specified device identifiers: _ `ipv4Address` _ `ipv6Address`
@@ -154,7 +156,7 @@ type ConfigSubscriptionDetail struct {
 	// schema for future-proofing, and CAMARA does not currently allow its use. After
 	// the CAMARA meta-release work is concluded and the relevant issues are resolved,
 	// its use will need to be explicitly documented in the guidelines.
-	Device ConfigSubscriptionDetailDevice `json:"device,required"`
+	Device ConfigSubscriptionDetailDevice `json:"device" api:"required"`
 	// A server hosting backend applications to deliver some business logic to clients.
 	//
 	// The developer can choose to provide the below specified device identifiers:
@@ -354,9 +356,9 @@ func (r *ConfigSubscriptionDetailApplicationServerPorts) UnmarshalJSON(data []by
 
 type ConfigSubscriptionDetailApplicationServerPortsRange struct {
 	// TCP or UDP port number
-	From int64 `json:"from,required"`
+	From int64 `json:"from" api:"required"`
 	// TCP or UDP port number
-	To int64 `json:"to,required"`
+	To int64 `json:"to" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		From        respjson.Field
@@ -382,7 +384,7 @@ func (r *ConfigSubscriptionDetailApplicationServerPortsRange) UnmarshalJSON(data
 // The property SubscriptionDetail is required.
 type ConfigParam struct {
 	// The detail of the requested event subscription
-	SubscriptionDetail ConfigSubscriptionDetailParam `json:"subscriptionDetail,omitzero,required"`
+	SubscriptionDetail ConfigSubscriptionDetailParam `json:"subscriptionDetail,omitzero" api:"required"`
 	// Set to `true` by API consumer if consumer wants to get an event as soon as the
 	// subscription is created and current situation reflects event request.
 	InitialEvent param.Opt[bool] `json:"initialEvent,omitzero"`
@@ -413,7 +415,7 @@ func (r *ConfigParam) UnmarshalJSON(data []byte) error {
 // The properties ApplicationProfileID, Device are required.
 type ConfigSubscriptionDetailParam struct {
 	// Identifier for the Application Profile
-	ApplicationProfileID string `json:"applicationProfileId,required" format:"uuid"`
+	ApplicationProfileID string `json:"applicationProfileId" api:"required" format:"uuid"`
 	// End-user equipment able to connect to a mobile network. Examples of devices
 	// include smartphones or IoT sensors/actuators. The developer can choose to
 	// provide the below specified device identifiers: _ `ipv4Address` _ `ipv6Address`
@@ -425,7 +427,7 @@ type ConfigSubscriptionDetailParam struct {
 	// schema for future-proofing, and CAMARA does not currently allow its use. After
 	// the CAMARA meta-release work is concluded and the relevant issues are resolved,
 	// its use will need to be explicitly documented in the guidelines.
-	Device ConfigSubscriptionDetailDeviceParam `json:"device,omitzero,required"`
+	Device ConfigSubscriptionDetailDeviceParam `json:"device,omitzero" api:"required"`
 	// A server hosting backend applications to deliver some business logic to clients.
 	//
 	// The developer can choose to provide the below specified device identifiers:
@@ -601,9 +603,9 @@ func (r *ConfigSubscriptionDetailApplicationServerPortsParam) UnmarshalJSON(data
 // The properties From, To are required.
 type ConfigSubscriptionDetailApplicationServerPortsRangeParam struct {
 	// TCP or UDP port number
-	From int64 `json:"from,required"`
+	From int64 `json:"from" api:"required"`
 	// TCP or UDP port number
-	To int64 `json:"to,required"`
+	To int64 `json:"to" api:"required"`
 	paramObj
 }
 
@@ -642,19 +644,19 @@ type Subscription struct {
 	// type attributes must be defined in `subscriptionDetail` Note: if a request is
 	// performed for several event type, all subscribed event will use same `config`
 	// parameters.
-	Config Config `json:"config,required"`
+	Config Config `json:"config" api:"required"`
 	// Identifier of a delivery protocol. Only HTTP is allowed for now
 	//
 	// Any of "HTTP", "MQTT3", "MQTT5", "AMQP", "NATS", "KAFKA".
-	Protocol Protocol `json:"protocol,required"`
+	Protocol Protocol `json:"protocol" api:"required"`
 	// The address to which events shall be delivered using the selected protocol.
-	Sink string `json:"sink,required" format:"uri"`
+	Sink string `json:"sink" api:"required" format:"uri"`
 	// Date when the event subscription will begin/began It must follow
 	// [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) and must
 	// have time zone.
-	StartsAt time.Time `json:"startsAt,required" format:"date-time"`
+	StartsAt time.Time `json:"startsAt" api:"required" format:"date-time"`
 	// Camara Event types eligible to be delivered by this subscription.
-	Types []EventType `json:"types,required"`
+	Types []EventType `json:"types" api:"required"`
 	// Date when the event subscription will expire. Only provided when
 	// `subscriptionExpireTime` is indicated by API client or Telco Operator has
 	// specific policy about that. It must follow
@@ -759,15 +761,15 @@ type ConnectivityinsightSubscriptionNewParams struct {
 	// type attributes must be defined in `subscriptionDetail` Note: if a request is
 	// performed for several event type, all subscribed event will use same `config`
 	// parameters.
-	Config ConfigParam `json:"config,omitzero,required"`
+	Config ConfigParam `json:"config,omitzero" api:"required"`
 	// Identifier of a delivery protocol. Only HTTP is allowed for now
 	//
 	// Any of "HTTP", "MQTT3", "MQTT5", "AMQP", "NATS", "KAFKA".
-	Protocol Protocol `json:"protocol,omitzero,required"`
+	Protocol Protocol `json:"protocol,omitzero" api:"required"`
 	// The address to which events shall be delivered using the selected protocol.
-	Sink string `json:"sink,required" format:"uri"`
+	Sink string `json:"sink" api:"required" format:"uri"`
 	// Camara Event types eligible to be delivered by this subscription.
-	Types       []EventType       `json:"types,omitzero,required"`
+	Types       []EventType       `json:"types,omitzero" api:"required"`
 	XCorrelator param.Opt[string] `header:"x-correlator,omitzero" json:"-"`
 	// A sink credential provides authentication or authorization information
 	SinkCredential ConnectivityinsightSubscriptionNewParamsSinkCredential `json:"sinkCredential,omitzero"`
@@ -790,7 +792,7 @@ type ConnectivityinsightSubscriptionNewParamsSinkCredential struct {
 	// ACCESSTOKEN for now
 	//
 	// Any of "PLAIN", "ACCESSTOKEN", "REFRESHTOKEN".
-	CredentialType string `json:"credentialType,omitzero,required"`
+	CredentialType string `json:"credentialType,omitzero" api:"required"`
 	paramObj
 }
 

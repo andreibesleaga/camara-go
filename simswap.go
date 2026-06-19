@@ -13,7 +13,8 @@ import (
 // automatically. You should not instantiate this service directly, and instead use
 // the [NewSimswapService] method instead.
 type SimswapService struct {
-	Options       []option.RequestOption
+	Options []option.RequestOption
+	// Sim Swap Subscriptions
 	Subscriptions SimswapSubscriptionService
 }
 

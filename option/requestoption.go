@@ -266,6 +266,174 @@ func WithEnvironmentProduction() RequestOption {
 	return requestconfig.WithDefaultBaseURL("https://api.example.com/camara/")
 }
 
+// WithBearerToken returns a RequestOption that sets the client setting "bearer_token".
+func WithBearerToken(value string) RequestOption {
+	return requestconfig.RequestOptionFunc(func(r *requestconfig.RequestConfig) error {
+		r.BearerToken = value
+		return r.Apply(WithHeader("authorization", fmt.Sprintf("Bearer %s", r.BearerToken)))
+	})
+}
+
+// WithCustomerInsightsToken returns a RequestOption that sets the client setting "customer_insights_token".
+func WithCustomerInsightsToken(value string) RequestOption {
+	return requestconfig.RequestOptionFunc(func(r *requestconfig.RequestConfig) error {
+		r.CustomerInsightsToken = value
+		return r.Apply(WithHeader("authorization", fmt.Sprintf("Bearer %s", r.CustomerInsightsToken)))
+	})
+}
+
+// WithDeviceSwapToken returns a RequestOption that sets the client setting "device_swap_token".
+func WithDeviceSwapToken(value string) RequestOption {
+	return requestconfig.RequestOptionFunc(func(r *requestconfig.RequestConfig) error {
+		r.DeviceSwapToken = value
+		return r.Apply(WithHeader("authorization", fmt.Sprintf("Bearer %s", r.DeviceSwapToken)))
+	})
+}
+
+// WithKYCAgeVerificationToken returns a RequestOption that sets the client setting "kyc_age_verification_token".
+func WithKYCAgeVerificationToken(value string) RequestOption {
+	return requestconfig.RequestOptionFunc(func(r *requestconfig.RequestConfig) error {
+		r.KYCAgeVerificationToken = value
+		return r.Apply(WithHeader("authorization", fmt.Sprintf("Bearer %s", r.KYCAgeVerificationToken)))
+	})
+}
+
+// WithKYCFillInToken returns a RequestOption that sets the client setting "kyc_fill_in_token".
+func WithKYCFillInToken(value string) RequestOption {
+	return requestconfig.RequestOptionFunc(func(r *requestconfig.RequestConfig) error {
+		r.KYCFillInToken = value
+		return r.Apply(WithHeader("authorization", fmt.Sprintf("Bearer %s", r.KYCFillInToken)))
+	})
+}
+
+// WithKYCMatchToken returns a RequestOption that sets the client setting "kyc_match_token".
+func WithKYCMatchToken(value string) RequestOption {
+	return requestconfig.RequestOptionFunc(func(r *requestconfig.RequestConfig) error {
+		r.KYCMatchToken = value
+		return r.Apply(WithHeader("authorization", fmt.Sprintf("Bearer %s", r.KYCMatchToken)))
+	})
+}
+
+// WithTenureToken returns a RequestOption that sets the client setting "tenure_token".
+func WithTenureToken(value string) RequestOption {
+	return requestconfig.RequestOptionFunc(func(r *requestconfig.RequestConfig) error {
+		r.TenureToken = value
+		return r.Apply(WithHeader("authorization", fmt.Sprintf("Bearer %s", r.TenureToken)))
+	})
+}
+
+// WithNumberRecyclingToken returns a RequestOption that sets the client setting "number_recycling_token".
+func WithNumberRecyclingToken(value string) RequestOption {
+	return requestconfig.RequestOptionFunc(func(r *requestconfig.RequestConfig) error {
+		r.NumberRecyclingToken = value
+		return r.Apply(WithHeader("authorization", fmt.Sprintf("Bearer %s", r.NumberRecyclingToken)))
+	})
+}
+
+// WithOtpValidationToken returns a RequestOption that sets the client setting "otp_validation_token".
+func WithOtpValidationToken(value string) RequestOption {
+	return requestconfig.RequestOptionFunc(func(r *requestconfig.RequestConfig) error {
+		r.OtpValidationToken = value
+		return r.Apply(WithHeader("authorization", fmt.Sprintf("Bearer %s", r.OtpValidationToken)))
+	})
+}
+
+// WithCallForwardingSignalToken returns a RequestOption that sets the client setting "call_forwarding_signal_token".
+func WithCallForwardingSignalToken(value string) RequestOption {
+	return requestconfig.RequestOptionFunc(func(r *requestconfig.RequestConfig) error {
+		r.CallForwardingSignalToken = value
+		return r.Apply(WithHeader("authorization", fmt.Sprintf("Bearer %s", r.CallForwardingSignalToken)))
+	})
+}
+
+// WithDeviceLocationToken returns a RequestOption that sets the client setting "device_location_token".
+func WithDeviceLocationToken(value string) RequestOption {
+	return requestconfig.RequestOptionFunc(func(r *requestconfig.RequestConfig) error {
+		r.DeviceLocationToken = value
+		return r.Apply(WithHeader("authorization", fmt.Sprintf("Bearer %s", r.DeviceLocationToken)))
+	})
+}
+
+// WithPopulationDensityDataToken returns a RequestOption that sets the client setting "population_density_data_token".
+func WithPopulationDensityDataToken(value string) RequestOption {
+	return requestconfig.RequestOptionFunc(func(r *requestconfig.RequestConfig) error {
+		r.PopulationDensityDataToken = value
+		return r.Apply(WithHeader("authorization", fmt.Sprintf("Bearer %s", r.PopulationDensityDataToken)))
+	})
+}
+
+// WithRegionDeviceCountToken returns a RequestOption that sets the client setting "region_device_count_token".
+func WithRegionDeviceCountToken(value string) RequestOption {
+	return requestconfig.RequestOptionFunc(func(r *requestconfig.RequestConfig) error {
+		r.RegionDeviceCountToken = value
+		return r.Apply(WithHeader("authorization", fmt.Sprintf("Bearer %s", r.RegionDeviceCountToken)))
+	})
+}
+
+// WithWebRtcToken returns a RequestOption that sets the client setting "web_rtc_token".
+func WithWebRtcToken(value string) RequestOption {
+	return requestconfig.RequestOptionFunc(func(r *requestconfig.RequestConfig) error {
+		r.WebRtcToken = value
+		return r.Apply(WithHeader("authorization", fmt.Sprintf("Bearer %s", r.WebRtcToken)))
+	})
+}
+
+// WithConnectivityInsightsToken returns a RequestOption that sets the client setting "connectivity_insights_token".
+func WithConnectivityInsightsToken(value string) RequestOption {
+	return requestconfig.RequestOptionFunc(func(r *requestconfig.RequestConfig) error {
+		r.ConnectivityInsightsToken = value
+		return r.Apply(WithHeader("authorization", fmt.Sprintf("Bearer %s", r.ConnectivityInsightsToken)))
+	})
+}
+
+// WithQualityOnDemandToken returns a RequestOption that sets the client setting "quality_on_demand_token".
+func WithQualityOnDemandToken(value string) RequestOption {
+	return requestconfig.RequestOptionFunc(func(r *requestconfig.RequestConfig) error {
+		r.QualityOnDemandToken = value
+		return r.Apply(WithHeader("authorization", fmt.Sprintf("Bearer %s", r.QualityOnDemandToken)))
+	})
+}
+
+// WithDeviceIdentifierToken returns a RequestOption that sets the client setting "device_identifier_token".
+func WithDeviceIdentifierToken(value string) RequestOption {
+	return requestconfig.RequestOptionFunc(func(r *requestconfig.RequestConfig) error {
+		r.DeviceIdentifierToken = value
+		return r.Apply(WithHeader("authorization", fmt.Sprintf("Bearer %s", r.DeviceIdentifierToken)))
+	})
+}
+
+// WithSimSwapToken returns a RequestOption that sets the client setting "sim_swap_token".
+func WithSimSwapToken(value string) RequestOption {
+	return requestconfig.RequestOptionFunc(func(r *requestconfig.RequestConfig) error {
+		r.SimSwapToken = value
+		return r.Apply(WithHeader("authorization", fmt.Sprintf("Bearer %s", r.SimSwapToken)))
+	})
+}
+
+// WithDeviceRoamingStatusToken returns a RequestOption that sets the client setting "device_roaming_status_token".
+func WithDeviceRoamingStatusToken(value string) RequestOption {
+	return requestconfig.RequestOptionFunc(func(r *requestconfig.RequestConfig) error {
+		r.DeviceRoamingStatusToken = value
+		return r.Apply(WithHeader("authorization", fmt.Sprintf("Bearer %s", r.DeviceRoamingStatusToken)))
+	})
+}
+
+// WithDeviceReachabilityStatusToken returns a RequestOption that sets the client setting "device_reachability_status_token".
+func WithDeviceReachabilityStatusToken(value string) RequestOption {
+	return requestconfig.RequestOptionFunc(func(r *requestconfig.RequestConfig) error {
+		r.DeviceReachabilityStatusToken = value
+		return r.Apply(WithHeader("authorization", fmt.Sprintf("Bearer %s", r.DeviceReachabilityStatusToken)))
+	})
+}
+
+// WithConnectedNetworkTypeToken returns a RequestOption that sets the client setting "connected_network_type_token".
+func WithConnectedNetworkTypeToken(value string) RequestOption {
+	return requestconfig.RequestOptionFunc(func(r *requestconfig.RequestConfig) error {
+		r.ConnectedNetworkTypeToken = value
+		return r.Apply(WithHeader("authorization", fmt.Sprintf("Bearer %s", r.ConnectedNetworkTypeToken)))
+	})
+}
+
 // WithDeviceLocationNotificationsAPIKey returns a RequestOption that sets the client setting "device_location_notifications_api_key".
 func WithDeviceLocationNotificationsAPIKey(value string) RequestOption {
 	return requestconfig.RequestOptionFunc(func(r *requestconfig.RequestConfig) error {

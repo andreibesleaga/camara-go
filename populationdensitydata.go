@@ -16,6 +16,8 @@ import (
 	"github.com/stainless-sdks/camara-go/packages/respjson"
 )
 
+// Population Density Data
+//
 // PopulationdensitydataService contains methods and other services that help with
 // interacting with the camara API.
 //
@@ -41,12 +43,12 @@ func NewPopulationdensitydataService(opts ...option.RequestOption) (r Population
 // area.
 func (r *PopulationdensitydataService) Get(ctx context.Context, params PopulationdensitydataGetParams, opts ...option.RequestOption) (res *PopulationdensitydataGetResponse, err error) {
 	if !param.IsOmitted(params.XCorrelator) {
-		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%s", params.XCorrelator.Value)))
+		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%v", params.XCorrelator.Value)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	path := "populationdensitydata/retrieve"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Population density values is represented in time intervals for different cells
@@ -70,14 +72,14 @@ type PopulationdensitydataGetResponse struct {
 	//
 	// Any of "SUPPORTED_AREA", "PART_OF_AREA_NOT_SUPPORTED", "AREA_NOT_SUPPORTED",
 	// "OPERATION_NOT_COMPLETED".
-	Status PopulationdensitydataGetResponseStatus `json:"status,required"`
+	Status PopulationdensitydataGetResponseStatus `json:"status" api:"required"`
 	// Time ranges along with the population density data for the cells within it. The
 	// request startTime or the request endTime have to be fully covered by the
 	// intervals. For example, if the intervals are 1-hour long and the input date
 	// range were [2024-01-03T11:25:00Z to 2024-01-03T12:45:00Z] it would contain 2
 	// intervals (Interval from 2024-01-03T11:00:00Z to 2024-01-03T12:00:00Z and
 	// interval from 2024-01-03T12:00:00Z to 2024-01-03T13:00:00Z).
-	TimedPopulationDensityData []PopulationdensitydataGetResponseTimedPopulationDensityData `json:"timedPopulationDensityData,required"`
+	TimedPopulationDensityData []PopulationdensitydataGetResponseTimedPopulationDensityData `json:"timedPopulationDensityData" api:"required"`
 	// Information about the status, mandatory when property `status` is
 	// `OPERATION_NOT_COMPLETED` for adding extra information about the error.
 	StatusInfo string `json:"statusInfo"`
@@ -121,17 +123,17 @@ const (
 
 type PopulationdensitydataGetResponseTimedPopulationDensityData struct {
 	// Population density data for the different cells in a concrete time range.
-	CellPopulationDensityData []PopulationdensitydataGetResponseTimedPopulationDensityDataCellPopulationDensityData `json:"cellPopulationDensityData,required"`
+	CellPopulationDensityData []PopulationdensitydataGetResponseTimedPopulationDensityDataCellPopulationDensityData `json:"cellPopulationDensityData" api:"required"`
 	// Interval end time. It must follow
 	// [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) and must
 	// have time zone. Recommended format is yyyy-MM-dd'T'HH:mm:ss.SSSZ (i.e. which
 	// allows 2023-07-03T14:27:08.312+02:00 or 2023-07-03T12:27:08.312Z)
-	EndTime time.Time `json:"endTime,required" format:"date-time"`
+	EndTime time.Time `json:"endTime" api:"required" format:"date-time"`
 	// Interval start time. It must follow
 	// [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) and must
 	// have time zone. Recommended format is yyyy-MM-dd'T'HH:mm:ss.SSSZ (i.e. which
 	// allows 2023-07-03T14:27:08.312+02:00 or 2023-07-03T12:27:08.312Z)
-	StartTime time.Time `json:"startTime,required" format:"date-time"`
+	StartTime time.Time `json:"startTime" api:"required" format:"date-time"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		CellPopulationDensityData respjson.Field
@@ -157,12 +159,12 @@ func (r *PopulationdensitydataGetResponseTimedPopulationDensityData) UnmarshalJS
 // supported `dataType` value is "NO_DATA"
 type PopulationdensitydataGetResponseTimedPopulationDensityDataCellPopulationDensityData struct {
 	// Any of "NO_DATA", "LOW_DENSITY", "DENSITY_ESTIMATION".
-	DataType string `json:"dataType,required"`
+	DataType string `json:"dataType" api:"required"`
 	// Coordinates of the cell represented as a string using the
 	// [Geohash system](https://en.wikipedia.org/wiki/Geohash). Encoding a geographic
 	// location into a short string. The value length, and thus, the cell granularity,
 	// is determined by the request body property `precision`.
-	Geohash string `json:"geohash,required"`
+	Geohash string `json:"geohash" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		DataType    respjson.Field
@@ -182,17 +184,17 @@ func (r *PopulationdensitydataGetResponseTimedPopulationDensityDataCellPopulatio
 
 type PopulationdensitydataGetParams struct {
 	// Base schema for all areas
-	Area PopulationdensitydataGetParamsArea `json:"area,omitzero,required"`
+	Area PopulationdensitydataGetParamsArea `json:"area,omitzero" api:"required"`
 	// End date time. It must follow
 	// [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) and must
 	// have time zone. Recommended format is yyyy-MM-dd'T'HH:mm:ss.SSSZ (i.e. which
 	// allows 2023-07-03T14:27:08.312+02:00 or 2023-07-03T12:27:08.312Z) The maximum
 	// endTime allowed is 3 months from the time of the request.
-	EndTime time.Time `json:"endTime,required" format:"date-time"`
+	EndTime time.Time `json:"endTime" api:"required" format:"date-time"`
 	// Start date time. It must follow
 	// [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) and must
 	// have time zone. Recommended format is yyyy-MM-dd'T'HH:mm:ss.SSSZ
-	StartTime time.Time `json:"startTime,required" format:"date-time"`
+	StartTime time.Time `json:"startTime" api:"required" format:"date-time"`
 	// Precision required of response cells. Precision defines a geohash level and
 	// corresponds to the length of the geohash for each cell. More information at
 	// [Geohash system](https://en.wikipedia.org/wiki/Geohash)" If not included the
@@ -225,7 +227,7 @@ type PopulationdensitydataGetParamsArea struct {
 	// Type of this area. POLYGON - The area is defined as a polygon.
 	//
 	// Any of "POLYGON".
-	AreaType string `json:"areaType,omitzero,required"`
+	AreaType string `json:"areaType,omitzero" api:"required"`
 	paramObj
 }
 
@@ -252,7 +254,7 @@ type PopulationdensitydataGetParamsSinkCredential struct {
 	// ACCESSTOKEN for now
 	//
 	// Any of "PLAIN", "ACCESSTOKEN", "REFRESHTOKEN".
-	CredentialType string `json:"credentialType,omitzero,required"`
+	CredentialType string `json:"credentialType,omitzero" api:"required"`
 	paramObj
 }
 

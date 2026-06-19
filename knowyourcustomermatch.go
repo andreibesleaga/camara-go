@@ -16,6 +16,8 @@ import (
 	"github.com/stainless-sdks/camara-go/packages/respjson"
 )
 
+// Know Your Customer Match
+//
 // KnowyourcustomermatchService contains methods and other services that help with
 // interacting with the camara API.
 //
@@ -42,21 +44,6 @@ func NewKnowyourcustomermatchService(opts ...option.RequestOption) (r Knowyourcu
 // `HTTP 400 - KNOW_YOUR_CUSTOMER.INVALID_PARAM_COMBINATION` error will be
 // returned.
 //
-// In order to proceed with the match check, some Operators may have the
-// requirement to perform an additional level of validation based on the
-// `idDocument` property. This means that, in those cases, the `idDocument` is
-// required and the provided value needs to match the one stored in the Operator
-// system associated with the indicated `phoneNumber`. This validation will be done
-// before proceeding with the match check of the rest of the properties. The
-// following two rules apply only in the cases where the Operator have the
-// requirement to validate the `idDocument`:
-//
-//   - If no `idDocument` is provided, then a
-//     `HTTP 403 - KNOW_YOUR_CUSTOMER.ID_DOCUMENT_REQUIRED` error will be returned.
-//   - If the provided `idDocument` does not match the one stored in the Operator
-//     systems, then a `HTTP 403 - KNOW_YOUR_CUSTOMER.ID_DOCUMENT_MISMATCH` error
-//     will be returned.
-//
 // The API will return the result of the matching process for each requested
 // attribute. This means that the response will **only** contain the attributes for
 // which validation has been requested. Possible values are:
@@ -68,12 +55,12 @@ func NewKnowyourcustomermatchService(opts ...option.RequestOption) (r Knowyourcu
 //   - **not_available**: the attribute is not available to validate.
 func (r *KnowyourcustomermatchService) Match(ctx context.Context, params KnowyourcustomermatchMatchParams, opts ...option.RequestOption) (res *KnowyourcustomermatchMatchResponse, err error) {
 	if !param.IsOmitted(params.XCorrelator) {
-		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%s", params.XCorrelator.Value)))
+		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%v", params.XCorrelator.Value)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	path := "knowyourcustomermatch/match"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // true - the attribute provided matches with the one in the Operator systems,

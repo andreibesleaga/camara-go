@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"slices"
+	"strings"
 
 	"github.com/stainless-sdks/camara-go/internal/requestconfig"
 	"github.com/stainless-sdks/camara-go/option"
@@ -16,27 +17,39 @@ import (
 // interacting with the camara API. You should not instantiate this client
 // directly, and instead use the [NewClient] method instead.
 type Client struct {
-	Options                         []option.RequestOption
-	Customerinsights                CustomerinsightService
-	Deviceswap                      DeviceswapService
+	Options          []option.RequestOption
+	Customerinsights CustomerinsightService
+	// Device Swap
+	Deviceswap DeviceswapService
+	// Know Your Customer Age Verification
 	Knowyourcustomerageverification KnowyourcustomerageverificationService
-	KnowyourcustomerfillIn          KnowyourcustomerfillInService
-	Knowyourcustomermatch           KnowyourcustomermatchService
-	Tenure                          TenureService
-	Numberrecycling                 NumberrecyclingService
-	Otpvalidation                   OtpvalidationService
-	Callforwardingsignal            CallforwardingsignalService
-	Devicelocation                  DevicelocationService
-	Populationdensitydata           PopulationdensitydataService
-	Regiondevicecount               RegiondevicecountService
-	Webrtc                          WebrtcService
-	Connectivityinsights            ConnectivityinsightService
-	Qualityondemand                 QualityondemandService
-	Deviceidentifier                DeviceidentifierService
-	Simswap                         SimswapService
-	Deviceroamingstatus             DeviceroamingstatusService
-	Devicereachabilitystatus        DevicereachabilitystatusService
-	Connectednetworktype            ConnectednetworktypeService
+	// Know Your Customer Fill-in
+	KnowyourcustomerfillIn KnowyourcustomerfillInService
+	// Know Your Customer Match
+	Knowyourcustomermatch KnowyourcustomermatchService
+	// KYC Tenure
+	Tenure TenureService
+	// Number Recycling
+	Numberrecycling NumberrecyclingService
+	// One Time Password SMS
+	Otpvalidation OtpvalidationService
+	// Call Forwarding Signal
+	Callforwardingsignal CallforwardingsignalService
+	Devicelocation       DevicelocationService
+	// Population Density Data
+	Populationdensitydata PopulationdensitydataService
+	// Region Device Count
+	Regiondevicecount    RegiondevicecountService
+	Webrtc               WebrtcService
+	Connectivityinsights ConnectivityinsightService
+	// QoS Profiles
+	Qualityondemand QualityondemandService
+	// Device Identifier
+	Deviceidentifier         DeviceidentifierService
+	Simswap                  SimswapService
+	Deviceroamingstatus      DeviceroamingstatusService
+	Devicereachabilitystatus DevicereachabilitystatusService
+	Connectednetworktype     ConnectednetworktypeService
 }
 
 // DefaultClientOptions read from the environment
@@ -47,12 +60,82 @@ type Client struct {
 // CAMARA_SIM_SWAP_NOTIFICATIONS_API_KEY,
 // CAMARA_DEVICE_ROAMING_STATUS_NOTIFICATIONS_API_KEY,
 // CAMARA_DEVICE_REACHABILITY_STATUS_NOTIFICATIONS_API_KEY,
-// CAMARA_CONNECTED_NETWORK_TYPE_NOTIFICATIONS_API_KEY, CAMARA_BASE_URL). This
-// should be used to initialize new clients.
+// CAMARA_CONNECTED_NETWORK_TYPE_NOTIFICATIONS_API_KEY, CAMARA_BEARER_TOKEN,
+// CAMARA_BEARER_TOKEN, CAMARA_BEARER_TOKEN, CAMARA_BEARER_TOKEN,
+// CAMARA_BEARER_TOKEN, CAMARA_BEARER_TOKEN, CAMARA_BEARER_TOKEN,
+// CAMARA_BEARER_TOKEN, CAMARA_BEARER_TOKEN, CAMARA_BEARER_TOKEN,
+// CAMARA_BEARER_TOKEN, CAMARA_BEARER_TOKEN, CAMARA_BEARER_TOKEN,
+// CAMARA_BEARER_TOKEN, CAMARA_BEARER_TOKEN, CAMARA_BEARER_TOKEN,
+// CAMARA_BEARER_TOKEN, CAMARA_BEARER_TOKEN, CAMARA_BEARER_TOKEN,
+// CAMARA_BEARER_TOKEN, CAMARA_BEARER_TOKEN, CAMARA_BASE_URL). This should be used
+// to initialize new clients.
 func DefaultClientOptions() []option.RequestOption {
-	defaults := []option.RequestOption{option.WithEnvironmentProduction()}
+	defaults := []option.RequestOption{option.WithHTTPClient(defaultHTTPClient()), option.WithEnvironmentProduction()}
 	if o, ok := os.LookupEnv("CAMARA_BASE_URL"); ok {
 		defaults = append(defaults, option.WithBaseURL(o))
+	}
+	if o, ok := os.LookupEnv("CAMARA_BEARER_TOKEN"); ok {
+		defaults = append(defaults, option.WithBearerToken(o))
+	}
+	if o, ok := os.LookupEnv("CAMARA_BEARER_TOKEN"); ok {
+		defaults = append(defaults, option.WithCustomerInsightsToken(o))
+	}
+	if o, ok := os.LookupEnv("CAMARA_BEARER_TOKEN"); ok {
+		defaults = append(defaults, option.WithDeviceSwapToken(o))
+	}
+	if o, ok := os.LookupEnv("CAMARA_BEARER_TOKEN"); ok {
+		defaults = append(defaults, option.WithKYCAgeVerificationToken(o))
+	}
+	if o, ok := os.LookupEnv("CAMARA_BEARER_TOKEN"); ok {
+		defaults = append(defaults, option.WithKYCFillInToken(o))
+	}
+	if o, ok := os.LookupEnv("CAMARA_BEARER_TOKEN"); ok {
+		defaults = append(defaults, option.WithKYCMatchToken(o))
+	}
+	if o, ok := os.LookupEnv("CAMARA_BEARER_TOKEN"); ok {
+		defaults = append(defaults, option.WithTenureToken(o))
+	}
+	if o, ok := os.LookupEnv("CAMARA_BEARER_TOKEN"); ok {
+		defaults = append(defaults, option.WithNumberRecyclingToken(o))
+	}
+	if o, ok := os.LookupEnv("CAMARA_BEARER_TOKEN"); ok {
+		defaults = append(defaults, option.WithOtpValidationToken(o))
+	}
+	if o, ok := os.LookupEnv("CAMARA_BEARER_TOKEN"); ok {
+		defaults = append(defaults, option.WithCallForwardingSignalToken(o))
+	}
+	if o, ok := os.LookupEnv("CAMARA_BEARER_TOKEN"); ok {
+		defaults = append(defaults, option.WithDeviceLocationToken(o))
+	}
+	if o, ok := os.LookupEnv("CAMARA_BEARER_TOKEN"); ok {
+		defaults = append(defaults, option.WithPopulationDensityDataToken(o))
+	}
+	if o, ok := os.LookupEnv("CAMARA_BEARER_TOKEN"); ok {
+		defaults = append(defaults, option.WithRegionDeviceCountToken(o))
+	}
+	if o, ok := os.LookupEnv("CAMARA_BEARER_TOKEN"); ok {
+		defaults = append(defaults, option.WithWebRtcToken(o))
+	}
+	if o, ok := os.LookupEnv("CAMARA_BEARER_TOKEN"); ok {
+		defaults = append(defaults, option.WithConnectivityInsightsToken(o))
+	}
+	if o, ok := os.LookupEnv("CAMARA_BEARER_TOKEN"); ok {
+		defaults = append(defaults, option.WithQualityOnDemandToken(o))
+	}
+	if o, ok := os.LookupEnv("CAMARA_BEARER_TOKEN"); ok {
+		defaults = append(defaults, option.WithDeviceIdentifierToken(o))
+	}
+	if o, ok := os.LookupEnv("CAMARA_BEARER_TOKEN"); ok {
+		defaults = append(defaults, option.WithSimSwapToken(o))
+	}
+	if o, ok := os.LookupEnv("CAMARA_BEARER_TOKEN"); ok {
+		defaults = append(defaults, option.WithDeviceRoamingStatusToken(o))
+	}
+	if o, ok := os.LookupEnv("CAMARA_BEARER_TOKEN"); ok {
+		defaults = append(defaults, option.WithDeviceReachabilityStatusToken(o))
+	}
+	if o, ok := os.LookupEnv("CAMARA_BEARER_TOKEN"); ok {
+		defaults = append(defaults, option.WithConnectedNetworkTypeToken(o))
 	}
 	if o, ok := os.LookupEnv("CAMARA_DEVICE_LOCATION_NOTIFICATIONS_API_KEY"); ok {
 		defaults = append(defaults, option.WithDeviceLocationNotificationsAPIKey(o))
@@ -81,6 +164,14 @@ func DefaultClientOptions() []option.RequestOption {
 	if o, ok := os.LookupEnv("CAMARA_CONNECTED_NETWORK_TYPE_NOTIFICATIONS_API_KEY"); ok {
 		defaults = append(defaults, option.WithConnectedNetworkTypeNotificationsAPIKey(o))
 	}
+	if o, ok := os.LookupEnv("CAMARA_CUSTOM_HEADERS"); ok {
+		for _, line := range strings.Split(o, "\n") {
+			colon := strings.Index(line, ":")
+			if colon >= 0 {
+				defaults = append(defaults, option.WithHeader(strings.TrimSpace(line[:colon]), strings.TrimSpace(line[colon+1:])))
+			}
+		}
+	}
 	return defaults
 }
 
@@ -93,9 +184,16 @@ func DefaultClientOptions() []option.RequestOption {
 // CAMARA_SIM_SWAP_NOTIFICATIONS_API_KEY,
 // CAMARA_DEVICE_ROAMING_STATUS_NOTIFICATIONS_API_KEY,
 // CAMARA_DEVICE_REACHABILITY_STATUS_NOTIFICATIONS_API_KEY,
-// CAMARA_CONNECTED_NETWORK_TYPE_NOTIFICATIONS_API_KEY, CAMARA_BASE_URL). The
-// option passed in as arguments are applied after these default arguments, and all
-// option will be passed down to the services and requests that this client makes.
+// CAMARA_CONNECTED_NETWORK_TYPE_NOTIFICATIONS_API_KEY, CAMARA_BEARER_TOKEN,
+// CAMARA_BEARER_TOKEN, CAMARA_BEARER_TOKEN, CAMARA_BEARER_TOKEN,
+// CAMARA_BEARER_TOKEN, CAMARA_BEARER_TOKEN, CAMARA_BEARER_TOKEN,
+// CAMARA_BEARER_TOKEN, CAMARA_BEARER_TOKEN, CAMARA_BEARER_TOKEN,
+// CAMARA_BEARER_TOKEN, CAMARA_BEARER_TOKEN, CAMARA_BEARER_TOKEN,
+// CAMARA_BEARER_TOKEN, CAMARA_BEARER_TOKEN, CAMARA_BEARER_TOKEN,
+// CAMARA_BEARER_TOKEN, CAMARA_BEARER_TOKEN, CAMARA_BEARER_TOKEN,
+// CAMARA_BEARER_TOKEN, CAMARA_BEARER_TOKEN, CAMARA_BASE_URL). The option passed in
+// as arguments are applied after these default arguments, and all option will be
+// passed down to the services and requests that this client makes.
 func NewClient(opts ...option.RequestOption) (r Client) {
 	opts = append(DefaultClientOptions(), opts...)
 

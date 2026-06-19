@@ -18,6 +18,8 @@ import (
 	"github.com/stainless-sdks/camara-go/packages/respjson"
 )
 
+// Device Geofencing Subscriptions
+//
 // DevicelocationSubscriptionService contains methods and other services that help
 // with interacting with the camara API.
 //
@@ -41,60 +43,63 @@ func NewDevicelocationSubscriptionService(opts ...option.RequestOption) (r Devic
 // enters or exits a specified area.
 func (r *DevicelocationSubscriptionService) New(ctx context.Context, params DevicelocationSubscriptionNewParams, opts ...option.RequestOption) (res *DeviceLocationSubscription, err error) {
 	if !param.IsOmitted(params.XCorrelator) {
-		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%s", params.XCorrelator.Value)))
+		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%v", params.XCorrelator.Value)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	path := "devicelocation/subscriptions"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Retrieve Geofencing subscription information for a given subscription ID.
 func (r *DevicelocationSubscriptionService) Get(ctx context.Context, subscriptionID string, query DevicelocationSubscriptionGetParams, opts ...option.RequestOption) (res *DeviceLocationSubscription, err error) {
 	if !param.IsOmitted(query.XCorrelator) {
-		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%s", query.XCorrelator.Value)))
+		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%v", query.XCorrelator.Value)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	if subscriptionID == "" {
 		err = errors.New("missing required subscriptionId parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("devicelocation/subscriptions/%s", subscriptionID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Retrieve a list of geofencing event subscription(s).
 func (r *DevicelocationSubscriptionService) List(ctx context.Context, query DevicelocationSubscriptionListParams, opts ...option.RequestOption) (res *[]DeviceLocationSubscription, err error) {
 	if !param.IsOmitted(query.XCorrelator) {
-		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%s", query.XCorrelator.Value)))
+		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%v", query.XCorrelator.Value)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	path := "devicelocation/subscriptions"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Delete a given Geofencing subscription.
 func (r *DevicelocationSubscriptionService) Delete(ctx context.Context, subscriptionID string, body DevicelocationSubscriptionDeleteParams, opts ...option.RequestOption) (res *DevicelocationSubscriptionDeleteResponse, err error) {
 	if !param.IsOmitted(body.XCorrelator) {
-		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%s", body.XCorrelator.Value)))
+		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%v", body.XCorrelator.Value)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	if subscriptionID == "" {
 		err = errors.New("missing required subscriptionId parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("devicelocation/subscriptions/%s", subscriptionID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
+// The geofencing area where the monitor is active. This area is specified by API
+// consumers in the subscription request. The same area definition is included in
+// event notifications without any modifications.
 type DeviceLocationArea struct {
 	// Type of this area. CIRCLE - The area is defined as a circle.
 	//
 	// Any of "CIRCLE".
-	AreaType DeviceLocationAreaAreaType `json:"areaType,required"`
+	AreaType DeviceLocationAreaAreaType `json:"areaType" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		AreaType    respjson.Field
@@ -125,12 +130,16 @@ const (
 	DeviceLocationAreaAreaTypeCircle DeviceLocationAreaAreaType = "CIRCLE"
 )
 
+// The geofencing area where the monitor is active. This area is specified by API
+// consumers in the subscription request. The same area definition is included in
+// event notifications without any modifications.
+//
 // The property AreaType is required.
 type DeviceLocationAreaParam struct {
 	// Type of this area. CIRCLE - The area is defined as a circle.
 	//
 	// Any of "CIRCLE".
-	AreaType DeviceLocationAreaAreaType `json:"areaType,omitzero,required"`
+	AreaType DeviceLocationAreaAreaType `json:"areaType,omitzero" api:"required"`
 	paramObj
 }
 
@@ -452,24 +461,24 @@ type DeviceLocationSubscription struct {
 	// manager. When this information is contained within an event notification, this
 	// concept SHALL be referred as subscriptionId as per Commonalities Event
 	// Notification Model.
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// Implementation-specific configuration parameters are needed by the subscription
 	// manager for acquiring events. In CAMARA we have predefined attributes like
 	// `subscriptionExpireTime`, `subscriptionMaxEvents`, `initialEvent`.
-	Config DeviceLocationSubscriptionConfig `json:"config,required"`
+	Config DeviceLocationSubscriptionConfig `json:"config" api:"required"`
 	// Identifier of a delivery protocol. Only HTTP is allowed for now.
 	//
 	// Any of "HTTP", "MQTT3", "MQTT5", "AMQP", "NATS", "KAFKA".
-	Protocol DeviceLocationProtocol `json:"protocol,required"`
+	Protocol DeviceLocationProtocol `json:"protocol" api:"required"`
 	// The address to which events shall be delivered using the selected protocol.
-	Sink string `json:"sink,required" format:"uri"`
+	Sink string `json:"sink" api:"required" format:"uri"`
 	// Date when the event subscription will begin/began It must follow
 	// [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) and must
 	// have time zone.
-	StartsAt time.Time `json:"startsAt,required" format:"date-time"`
+	StartsAt time.Time `json:"startsAt" api:"required" format:"date-time"`
 	// Camara Event types eligible to be delivered by this subscription. Note: As of
 	// now we enforce to have only event type per subscription.
-	Types []DeviceLocationSubscriptionEventType `json:"types,required"`
+	Types []DeviceLocationSubscriptionEventType `json:"types" api:"required"`
 	// Date when the event subscription will expire. Only provided when
 	// `subscriptionExpireTime` is indicated by API client or Telco Operator has
 	// specific policy about that. It must follow
@@ -521,7 +530,7 @@ func (r *DeviceLocationSubscription) UnmarshalJSON(data []byte) error {
 // `subscriptionExpireTime`, `subscriptionMaxEvents`, `initialEvent`.
 type DeviceLocationSubscriptionConfig struct {
 	// The detail of the event subscription granted by the implementation.
-	SubscriptionDetail DeviceLocationSubscriptionConfigSubscriptionDetail `json:"subscriptionDetail,required"`
+	SubscriptionDetail DeviceLocationSubscriptionConfigSubscriptionDetail `json:"subscriptionDetail" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		SubscriptionDetail respjson.Field
@@ -539,7 +548,10 @@ func (r *DeviceLocationSubscriptionConfig) UnmarshalJSON(data []byte) error {
 
 // The detail of the event subscription granted by the implementation.
 type DeviceLocationSubscriptionConfigSubscriptionDetail struct {
-	Area DeviceLocationArea `json:"area,required"`
+	// The geofencing area where the monitor is active. This area is specified by API
+	// consumers in the subscription request. The same area definition is included in
+	// event notifications without any modifications.
+	Area DeviceLocationArea `json:"area" api:"required"`
 	// End-user device able to connect to a mobile network. Examples of devices include
 	// smartphones or IoT sensors/actuators.
 	//
@@ -619,7 +631,7 @@ type DevicelocationSubscriptionDeleteResponse struct {
 	// manager. When this information is contained within an event notification, this
 	// concept SHALL be referred as subscriptionId as per Commonalities Event
 	// Notification Model.
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field
@@ -638,16 +650,16 @@ type DevicelocationSubscriptionNewParams struct {
 	// Implementation-specific configuration parameters are needed by the subscription
 	// manager for acquiring events. In CAMARA we have predefined attributes like
 	// `subscriptionExpireTime`, `subscriptionMaxEvents`, `initialEvent`.
-	Config DevicelocationSubscriptionNewParamsConfig `json:"config,omitzero,required"`
+	Config DevicelocationSubscriptionNewParamsConfig `json:"config,omitzero" api:"required"`
 	// Identifier of a delivery protocol. Only HTTP is allowed for now.
 	//
 	// Any of "HTTP", "MQTT3", "MQTT5", "AMQP", "NATS", "KAFKA".
-	Protocol DeviceLocationProtocol `json:"protocol,omitzero,required"`
+	Protocol DeviceLocationProtocol `json:"protocol,omitzero" api:"required"`
 	// The address to which events shall be delivered using the selected protocol.
-	Sink string `json:"sink,required" format:"uri"`
+	Sink string `json:"sink" api:"required" format:"uri"`
 	// Camara Event types which are eligible to be delivered by this subscription.
 	// Note: As of now we enforce to have only event type per subscription.
-	Types       []DeviceLocationSubscriptionEventType `json:"types,omitzero,required"`
+	Types       []DeviceLocationSubscriptionEventType `json:"types,omitzero" api:"required"`
 	XCorrelator param.Opt[string]                     `header:"x-correlator,omitzero" json:"-"`
 	// A sink credential provides authentication or authorization information necessary
 	// to enable delivery of events to a target.
@@ -668,7 +680,7 @@ func (r *DevicelocationSubscriptionNewParams) UnmarshalJSON(data []byte) error {
 // `subscriptionExpireTime`, `subscriptionMaxEvents`, `initialEvent`.
 type DevicelocationSubscriptionNewParamsConfig struct {
 	// The detail of the requested event subscription.
-	SubscriptionDetail DevicelocationSubscriptionNewParamsConfigSubscriptionDetail `json:"subscriptionDetail,omitzero,required"`
+	SubscriptionDetail DevicelocationSubscriptionNewParamsConfigSubscriptionDetail `json:"subscriptionDetail,omitzero" api:"required"`
 	DeviceLocationConfigParam
 }
 
@@ -684,7 +696,10 @@ func (r DevicelocationSubscriptionNewParamsConfig) MarshalJSON() (data []byte, e
 //
 // The property Area is required.
 type DevicelocationSubscriptionNewParamsConfigSubscriptionDetail struct {
-	Area DeviceLocationAreaParam `json:"area,omitzero,required"`
+	// The geofencing area where the monitor is active. This area is specified by API
+	// consumers in the subscription request. The same area definition is included in
+	// event notifications without any modifications.
+	Area DeviceLocationAreaParam `json:"area,omitzero" api:"required"`
 	// End-user device able to connect to a mobile network. Examples of devices include
 	// smartphones or IoT sensors/actuators.
 	//
@@ -726,7 +741,7 @@ type DevicelocationSubscriptionNewParamsSinkCredential struct {
 	// ACCESSTOKEN for now
 	//
 	// Any of "PLAIN", "ACCESSTOKEN", "REFRESHTOKEN".
-	CredentialType string `json:"credentialType,omitzero,required"`
+	CredentialType string `json:"credentialType,omitzero" api:"required"`
 	paramObj
 }
 

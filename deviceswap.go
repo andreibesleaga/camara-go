@@ -16,6 +16,8 @@ import (
 	"github.com/stainless-sdks/camara-go/packages/respjson"
 )
 
+// Device Swap
+//
 // DeviceswapService contains methods and other services that help with interacting
 // with the camara API.
 //
@@ -38,30 +40,30 @@ func NewDeviceswapService(opts ...option.RequestOption) (r DeviceswapService) {
 // Check if device swap has been performed during a past period
 func (r *DeviceswapService) Check(ctx context.Context, params DeviceswapCheckParams, opts ...option.RequestOption) (res *DeviceswapCheckResponse, err error) {
 	if !param.IsOmitted(params.XCorrelator) {
-		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%s", params.XCorrelator.Value)))
+		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%v", params.XCorrelator.Value)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	path := "deviceswap/check"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Get timestamp of last device swap for a mobile user account provided with phone
 // number.
 func (r *DeviceswapService) GetDate(ctx context.Context, params DeviceswapGetDateParams, opts ...option.RequestOption) (res *DeviceswapGetDateResponse, err error) {
 	if !param.IsOmitted(params.XCorrelator) {
-		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%s", params.XCorrelator.Value)))
+		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%v", params.XCorrelator.Value)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	path := "deviceswap/retrieve-date"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 type DeviceswapCheckResponse struct {
 	// Indicates whether the device has been swapped during the period within the
 	// provided age.
-	Swapped bool `json:"swapped,required"`
+	Swapped bool `json:"swapped" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Swapped     respjson.Field
@@ -80,7 +82,7 @@ type DeviceswapGetDateResponse struct {
 	// Timestamp of latest device swap performed. It must follow
 	// [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) and must
 	// have time zone.
-	LatestDeviceChange time.Time `json:"latestDeviceChange,required" format:"date-time"`
+	LatestDeviceChange time.Time `json:"latestDeviceChange" api:"required" format:"date-time"`
 	// Timeframe in days for device change supervision for the phone number. It could
 	// be valued in the response if the latest Device swap occurred before this
 	// monitored period.

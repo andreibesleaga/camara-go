@@ -18,6 +18,8 @@ import (
 	"github.com/stainless-sdks/camara-go/packages/respjson"
 )
 
+// Connected Network Type Subscriptions
+//
 // ConnectednetworktypeSubscriptionService contains methods and other services that
 // help with interacting with the camara API.
 //
@@ -41,54 +43,54 @@ func NewConnectednetworktypeSubscriptionService(opts ...option.RequestOption) (r
 // network type of a device.
 func (r *ConnectednetworktypeSubscriptionService) New(ctx context.Context, params ConnectednetworktypeSubscriptionNewParams, opts ...option.RequestOption) (res *ConnectedNetworkTypeSubscription, err error) {
 	if !param.IsOmitted(params.XCorrelator) {
-		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%s", params.XCorrelator.Value)))
+		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%v", params.XCorrelator.Value)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	path := "connectednetworktype/subscriptions"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // retrieve ConnectedNetworkType subscription information for a given subscription
 // ID.
 func (r *ConnectednetworktypeSubscriptionService) Get(ctx context.Context, subscriptionID string, query ConnectednetworktypeSubscriptionGetParams, opts ...option.RequestOption) (res *ConnectedNetworkTypeSubscription, err error) {
 	if !param.IsOmitted(query.XCorrelator) {
-		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%s", query.XCorrelator.Value)))
+		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%v", query.XCorrelator.Value)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	if subscriptionID == "" {
 		err = errors.New("missing required subscriptionId parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("connectednetworktype/subscriptions/%s", subscriptionID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Retrieve a list of device connected network type event subscription(s)
 func (r *ConnectednetworktypeSubscriptionService) List(ctx context.Context, query ConnectednetworktypeSubscriptionListParams, opts ...option.RequestOption) (res *[]ConnectedNetworkTypeSubscription, err error) {
 	if !param.IsOmitted(query.XCorrelator) {
-		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%s", query.XCorrelator.Value)))
+		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%v", query.XCorrelator.Value)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	path := "connectednetworktype/subscriptions"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // delete a given ConnectedNetworkType subscription.
 func (r *ConnectednetworktypeSubscriptionService) Delete(ctx context.Context, subscriptionID string, body ConnectednetworktypeSubscriptionDeleteParams, opts ...option.RequestOption) (res *ConnectednetworktypeSubscriptionDeleteResponse, err error) {
 	if !param.IsOmitted(body.XCorrelator) {
-		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%s", body.XCorrelator.Value)))
+		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%v", body.XCorrelator.Value)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	if subscriptionID == "" {
 		err = errors.New("missing required subscriptionId parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("connectednetworktype/subscriptions/%s", subscriptionID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Implementation-specific configuration parameters needed by the subscription
@@ -99,7 +101,7 @@ func (r *ConnectednetworktypeSubscriptionService) Delete(ctx context.Context, su
 // parameters.
 type ConnectedNetworkTypeConfig struct {
 	// The detail of the requested event subscription.
-	SubscriptionDetail ConnectedNetworkTypeConfigSubscriptionDetail `json:"subscriptionDetail,required"`
+	SubscriptionDetail ConnectedNetworkTypeConfigSubscriptionDetail `json:"subscriptionDetail" api:"required"`
 	// Set to `true` by API consumer if consumer wants to get an event as soon as the
 	// subscription is created and current situation reflects event request. Example:
 	// Consumer request area entered event. If consumer sets initialEvent to true and
@@ -282,7 +284,7 @@ func (r *ConnectedNetworkTypeConfigSubscriptionDetailDeviceIpv4Address) Unmarsha
 // The property SubscriptionDetail is required.
 type ConnectedNetworkTypeConfigParam struct {
 	// The detail of the requested event subscription.
-	SubscriptionDetail ConnectedNetworkTypeConfigSubscriptionDetailParam `json:"subscriptionDetail,omitzero,required"`
+	SubscriptionDetail ConnectedNetworkTypeConfigSubscriptionDetailParam `json:"subscriptionDetail,omitzero" api:"required"`
 	// Set to `true` by API consumer if consumer wants to get an event as soon as the
 	// subscription is created and current situation reflects event request. Example:
 	// Consumer request area entered event. If consumer sets initialEvent to true and
@@ -441,24 +443,24 @@ type ConnectedNetworkTypeSubscription struct {
 	// manager. When this information is contained within an event notification, this
 	// concept SHALL be referred as subscriptionId as per Commonalities Event
 	// Notification Model.
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// Implementation-specific configuration parameters needed by the subscription
 	// manager for acquiring events. In CAMARA we have predefined attributes like
 	// `subscriptionExpireTime`, `subscriptionMaxEvents`, `initialEvent` Specific event
 	// type attributes must be defined in `subscriptionDetail` Note: if a request is
 	// performed for several event type, all subscribed event will use same `config`
 	// parameters.
-	Config ConnectedNetworkTypeConfig `json:"config,required"`
+	Config ConnectedNetworkTypeConfig `json:"config" api:"required"`
 	// Identifier of a delivery protocol. Only HTTP is allowed for now
 	//
 	// Any of "HTTP", "MQTT3", "MQTT5", "AMQP", "NATS", "KAFKA".
-	Protocol ConnectedNetworkTypeProtocol `json:"protocol,required"`
+	Protocol ConnectedNetworkTypeProtocol `json:"protocol" api:"required"`
 	// The address to which events shall be delivered using the selected protocol.
-	Sink string `json:"sink,required" format:"uri"`
+	Sink string `json:"sink" api:"required" format:"uri"`
 	// Camara Event types eligible to be delivered by this subscription. Note: For the
 	// current Commonalities API design guidelines, only one event type per
 	// subscription is allowed
-	Types []ConnectedNetworkTypeSubscriptionEventType `json:"types,required"`
+	Types []ConnectedNetworkTypeSubscriptionEventType `json:"types" api:"required"`
 	// Date when the event subscription will expire. Only provided when
 	// `subscriptionExpireTime` is indicated by API client or Telco Operator has
 	// specific policy about that. It must follow
@@ -552,7 +554,7 @@ type ConnectednetworktypeSubscriptionDeleteResponse struct {
 	// manager. When this information is contained within an event notification, this
 	// concept SHALL be referred as subscriptionId as per Commonalities Event
 	// Notification Model.
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field
@@ -574,16 +576,16 @@ type ConnectednetworktypeSubscriptionNewParams struct {
 	// type attributes must be defined in `subscriptionDetail` Note: if a request is
 	// performed for several event type, all subscribed event will use same `config`
 	// parameters.
-	Config ConnectedNetworkTypeConfigParam `json:"config,omitzero,required"`
+	Config ConnectedNetworkTypeConfigParam `json:"config,omitzero" api:"required"`
 	// Identifier of a delivery protocol. Only HTTP is allowed for now
 	//
 	// Any of "HTTP", "MQTT3", "MQTT5", "AMQP", "NATS", "KAFKA".
-	Protocol ConnectedNetworkTypeProtocol `json:"protocol,omitzero,required"`
+	Protocol ConnectedNetworkTypeProtocol `json:"protocol,omitzero" api:"required"`
 	// The address to which events shall be delivered using the selected protocol.
-	Sink string `json:"sink,required" format:"uri"`
+	Sink string `json:"sink" api:"required" format:"uri"`
 	// Camara Event types eligible to be delivered by this subscription. Note: As of
 	// now we enforce to have only event type per subscription.
-	Types       []ConnectedNetworkTypeSubscriptionEventType `json:"types,omitzero,required"`
+	Types       []ConnectedNetworkTypeSubscriptionEventType `json:"types,omitzero" api:"required"`
 	XCorrelator param.Opt[string]                           `header:"x-correlator,omitzero" json:"-"`
 	// A sink credential provides authentication or authorization information necessary
 	// to enable delivery of events to a target.
@@ -608,7 +610,7 @@ type ConnectednetworktypeSubscriptionNewParamsSinkCredential struct {
 	// ACCESSTOKEN for now
 	//
 	// Any of "PLAIN", "ACCESSTOKEN", "REFRESHTOKEN".
-	CredentialType string `json:"credentialType,omitzero,required"`
+	CredentialType string `json:"credentialType,omitzero" api:"required"`
 	paramObj
 }
 

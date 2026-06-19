@@ -15,8 +15,8 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 Use the Camara MCP Server to enable AI assistants to interact with this API, allowing them to explore endpoints, make test requests, and use documentation to help integrate this SDK into your application.
 
-[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=camara-sdk-mcp&config=eyJuYW1lIjoiY2FtYXJhLXNkay1tY3AiLCJ0cmFuc3BvcnQiOiJzc2UiLCJ1cmwiOiJodHRwczovL2NhbWFyYS5zdGxtY3AuY29tL3NzZSJ9)
-[![Install in VS Code](https://img.shields.io/badge/_-Add_to_VS_Code-blue?style=for-the-badge&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCA0MCA0MCI+PHBhdGggZmlsbD0iI0VFRSIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMzAuMjM1IDM5Ljg4NGEyLjQ5MSAyLjQ5MSAwIDAgMS0xLjc4MS0uNzNMMTIuNyAyNC43OGwtMy40NiAyLjYyNC0zLjQwNiAyLjU4MmExLjY2NSAxLjY2NSAwIDAgMS0xLjA4Mi4zMzggMS42NjQgMS42NjQgMCAwIDEtMS4wNDYtLjQzMWwtMi4yLTJhMS42NjYgMS42NjYgMCAwIDEgMC0yLjQ2M0w3LjQ1OCAyMCA0LjY3IDE3LjQ1MyAxLjUwNyAxNC41N2ExLjY2NSAxLjY2NSAwIDAgMSAwLTIuNDYzbDIuMi0yYTEuNjY1IDEuNjY1IDAgMCAxIDIuMTMtLjA5N2w2Ljg2MyA1LjIwOUwyOC40NTIuODQ0YTIuNDg4IDIuNDg4IDAgMCAxIDEuODQxLS43MjljLjM1MS4wMDkuNjk5LjA5MSAxLjAxOS4yNDVsOC4yMzYgMy45NjFhMi41IDIuNSAwIDAgMSAxLjQxNSAyLjI1M3YuMDk5LS4wNDVWMzMuMzd2LS4wNDUuMDk1YTIuNTAxIDIuNTAxIDAgMCAxLTEuNDE2IDIuMjU3bC04LjIzNSAzLjk2MWEyLjQ5MiAyLjQ5MiAwIDAgMS0xLjA3Ny4yNDZabS43MTYtMjguOTQ3LTExLjk0OCA5LjA2MiAxMS45NTIgOS4wNjUtLjAwNC0xOC4xMjdaIi8+PC9zdmc+)](https://vscode.stainless.com/mcp/%7B%22name%22%3A%22camara-sdk-mcp%22%2C%22type%22%3A%22sse%22%2C%22url%22%3A%22https%3A%2F%2Fcamara.stlmcp.com%2Fsse%22%7D)
+[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=camara-sdk-mcp&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsImNhbWFyYS1zZGstbWNwIl0sImVudiI6eyJDQU1BUkFfQkVBUkVSX1RPS0VOIjoiTXkgQ29ubmVjdGVkIE5ldHdvcmsgVHlwZSBUb2tlbiIsIkNBTUFSQV9ERVZJQ0VfTE9DQVRJT05fTk9USUZJQ0FUSU9OU19BUElfS0VZIjoiTXkgRGV2aWNlIExvY2F0aW9uIE5vdGlmaWNhdGlvbnMgQVBJIEtleSIsIkNBTUFSQV9OT1RJRklDQVRJT05TX0FQSV9LRVkiOiJNeSBOb3RpZmljYXRpb25zIEFQSSBLZXkiLCJDQU1BUkFfUE9QVUxBVElPTl9ERU5TSVRZX0RBVEFfTk9USUZJQ0FUSU9OU19BUElfS0VZIjoiTXkgUG9wdWxhdGlvbiBEZW5zaXR5IERhdGEgTm90aWZpY2F0aW9ucyBBUEkgS2V5IiwiQ0FNQVJBX1JFR0lPTl9ERVZJQ0VfQ09VTlRfTk9USUZJQ0FUSU9OU19BUElfS0VZIjoiTXkgUmVnaW9uIERldmljZSBDb3VudCBOb3RpZmljYXRpb25zIEFQSSBLZXkiLCJDQU1BUkFfQ09OTkVDVElWSVRZX0lOU0lHSFRTX05PVElGSUNBVElPTlNfQVBJX0tFWSI6Ik15IENvbm5lY3Rpdml0eSBJbnNpZ2h0cyBOb3RpZmljYXRpb25zIEFQSSBLZXkiLCJDQU1BUkFfU0lNX1NXQVBfTk9USUZJQ0FUSU9OU19BUElfS0VZIjoiTXkgU2ltIFN3YXAgTm90aWZpY2F0aW9ucyBBUEkgS2V5IiwiQ0FNQVJBX0RFVklDRV9ST0FNSU5HX1NUQVRVU19OT1RJRklDQVRJT05TX0FQSV9LRVkiOiJNeSBEZXZpY2UgUm9hbWluZyBTdGF0dXMgTm90aWZpY2F0aW9ucyBBUEkgS2V5IiwiQ0FNQVJBX0RFVklDRV9SRUFDSEFCSUxJVFlfU1RBVFVTX05PVElGSUNBVElPTlNfQVBJX0tFWSI6Ik15IERldmljZSBSZWFjaGFiaWxpdHkgU3RhdHVzIE5vdGlmaWNhdGlvbnMgQVBJIEtleSIsIkNBTUFSQV9DT05ORUNURURfTkVUV09SS19UWVBFX05PVElGSUNBVElPTlNfQVBJX0tFWSI6Ik15IENvbm5lY3RlZCBOZXR3b3JrIFR5cGUgTm90aWZpY2F0aW9ucyBBUEkgS2V5In19)
+[![Install in VS Code](https://img.shields.io/badge/_-Add_to_VS_Code-blue?style=for-the-badge&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCA0MCA0MCI+PHBhdGggZmlsbD0iI0VFRSIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMzAuMjM1IDM5Ljg4NGEyLjQ5MSAyLjQ5MSAwIDAgMS0xLjc4MS0uNzNMMTIuNyAyNC43OGwtMy40NiAyLjYyNC0zLjQwNiAyLjU4MmExLjY2NSAxLjY2NSAwIDAgMS0xLjA4Mi4zMzggMS42NjQgMS42NjQgMCAwIDEtMS4wNDYtLjQzMWwtMi4yLTJhMS42NjYgMS42NjYgMCAwIDEgMC0yLjQ2M0w3LjQ1OCAyMCA0LjY3IDE3LjQ1MyAxLjUwNyAxNC41N2ExLjY2NSAxLjY2NSAwIDAgMSAwLTIuNDYzbDIuMi0yYTEuNjY1IDEuNjY1IDAgMCAxIDIuMTMtLjA5N2w2Ljg2MyA1LjIwOUwyOC40NTIuODQ0YTIuNDg4IDIuNDg4IDAgMCAxIDEuODQxLS43MjljLjM1MS4wMDkuNjk5LjA5MSAxLjAxOS4yNDVsOC4yMzYgMy45NjFhMi41IDIuNSAwIDAgMSAxLjQxNSAyLjI1M3YuMDk5LS4wNDVWMzMuMzd2LS4wNDUuMDk1YTIuNTAxIDIuNTAxIDAgMCAxLTEuNDE2IDIuMjU3bC04LjIzNSAzLjk2MWEyLjQ5MiAyLjQ5MiAwIDAgMS0xLjA3Ny4yNDZabS43MTYtMjguOTQ3LTExLjk0OCA5LjA2MiAxMS45NTIgOS4wNjUtLjAwNC0xOC4xMjdaIi8+PC9zdmc+)](https://vscode.stainless.com/mcp/%7B%22name%22%3A%22camara-sdk-mcp%22%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22camara-sdk-mcp%22%5D%2C%22env%22%3A%7B%22CAMARA_BEARER_TOKEN%22%3A%22My%20Connected%20Network%20Type%20Token%22%2C%22CAMARA_DEVICE_LOCATION_NOTIFICATIONS_API_KEY%22%3A%22My%20Device%20Location%20Notifications%20API%20Key%22%2C%22CAMARA_NOTIFICATIONS_API_KEY%22%3A%22My%20Notifications%20API%20Key%22%2C%22CAMARA_POPULATION_DENSITY_DATA_NOTIFICATIONS_API_KEY%22%3A%22My%20Population%20Density%20Data%20Notifications%20API%20Key%22%2C%22CAMARA_REGION_DEVICE_COUNT_NOTIFICATIONS_API_KEY%22%3A%22My%20Region%20Device%20Count%20Notifications%20API%20Key%22%2C%22CAMARA_CONNECTIVITY_INSIGHTS_NOTIFICATIONS_API_KEY%22%3A%22My%20Connectivity%20Insights%20Notifications%20API%20Key%22%2C%22CAMARA_SIM_SWAP_NOTIFICATIONS_API_KEY%22%3A%22My%20Sim%20Swap%20Notifications%20API%20Key%22%2C%22CAMARA_DEVICE_ROAMING_STATUS_NOTIFICATIONS_API_KEY%22%3A%22My%20Device%20Roaming%20Status%20Notifications%20API%20Key%22%2C%22CAMARA_DEVICE_REACHABILITY_STATUS_NOTIFICATIONS_API_KEY%22%3A%22My%20Device%20Reachability%20Status%20Notifications%20API%20Key%22%2C%22CAMARA_CONNECTED_NETWORK_TYPE_NOTIFICATIONS_API_KEY%22%3A%22My%20Connected%20Network%20Type%20Notifications%20API%20Key%22%7D%7D)
 
 > Note: You may need to set environment variables in your MCP client.
 
@@ -50,10 +50,13 @@ import (
 	"fmt"
 
 	"github.com/stainless-sdks/camara-go"
+	"github.com/stainless-sdks/camara-go/option"
 )
 
 func main() {
-	client := camara.NewClient()
+	client := camara.NewClient(
+		option.WithBearerToken("My Bearer Token"), // defaults to os.LookupEnv("CAMARA_BEARER_TOKEN")
+	)
 	scoring, err := client.Customerinsights.Scoring.Get(context.TODO(), camara.CustomerinsightScoringGetParams{})
 	if err != nil {
 		panic(err.Error())
@@ -68,7 +71,7 @@ func main() {
 The camara library uses the [`omitzero`](https://tip.golang.org/doc/go1.24#encodingjsonpkgencodingjson)
 semantics from the Go 1.24+ `encoding/json` release for request fields.
 
-Required primitive fields (`int64`, `string`, etc.) feature the tag <code>\`json:"...,required"\`</code>. These
+Required primitive fields (`int64`, `string`, etc.) feature the tag <code>\`api:"required"\`</code>. These
 fields are always serialized, even their zero values.
 
 Optional primitive types are wrapped in a `param.Opt[T]`. These fields can be set with the provided constructors, `camara.String(string)`, `camara.Int(int64)`, etc.

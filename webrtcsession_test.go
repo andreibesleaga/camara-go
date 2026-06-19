@@ -7,6 +7,7 @@ import (
 	"errors"
 	"os"
 	"testing"
+	"time"
 
 	"github.com/stainless-sdks/camara-go"
 	"github.com/stainless-sdks/camara-go/internal/testutil"
@@ -14,7 +15,7 @@ import (
 )
 
 func TestWebrtcSessionNewWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -24,6 +25,27 @@ func TestWebrtcSessionNewWithOptionalParams(t *testing.T) {
 	}
 	client := camara.NewClient(
 		option.WithBaseURL(baseURL),
+		option.WithBearerToken("My Bearer Token"),
+		option.WithCustomerInsightsToken("My Customer Insights Token"),
+		option.WithDeviceSwapToken("My Device Swap Token"),
+		option.WithKYCAgeVerificationToken("My KYC Age Verification Token"),
+		option.WithKYCFillInToken("My KYC Fill In Token"),
+		option.WithKYCMatchToken("My KYC Match Token"),
+		option.WithTenureToken("My Tenure Token"),
+		option.WithNumberRecyclingToken("My Number Recycling Token"),
+		option.WithOtpValidationToken("My Otp Validation Token"),
+		option.WithCallForwardingSignalToken("My Call Forwarding Signal Token"),
+		option.WithDeviceLocationToken("My Device Location Token"),
+		option.WithPopulationDensityDataToken("My Population Density Data Token"),
+		option.WithRegionDeviceCountToken("My Region Device Count Token"),
+		option.WithWebRtcToken("My Web Rtc Token"),
+		option.WithConnectivityInsightsToken("My Connectivity Insights Token"),
+		option.WithQualityOnDemandToken("My Quality On Demand Token"),
+		option.WithDeviceIdentifierToken("My Device Identifier Token"),
+		option.WithSimSwapToken("My Sim Swap Token"),
+		option.WithDeviceRoamingStatusToken("My Device Roaming Status Token"),
+		option.WithDeviceReachabilityStatusToken("My Device Reachability Status Token"),
+		option.WithConnectedNetworkTypeToken("My Connected Network Type Token"),
 		option.WithDeviceLocationNotificationsAPIKey("My Device Location Notifications API Key"),
 		option.WithNotificationsAPIKey("My Notifications API Key"),
 		option.WithPopulationDensityDataNotificationsAPIKey("My Population Density Data Notifications API Key"),
@@ -39,6 +61,23 @@ func TestWebrtcSessionNewWithOptionalParams(t *testing.T) {
 		MediaSessionInformation: camara.MediaSessionInformationParam{
 			Answer: camara.SdpDescriptorParam{
 				Sdp: camara.String("sdp"),
+			},
+			CallType: camara.MediaSessionInformationCallTypeRegular,
+			LocationDetails: camara.WebRtcLocationDetailsParam{
+				Confidence: camara.WebRtcLocationDetailsConfidenceParam{
+					Pdf:   "normal",
+					Value: camara.Float(0),
+				},
+				Coordinates: camara.WebRtcLocationDetailsCoordinatesUnionParam{
+					OfWebRtcCircleCoordinates: &camara.WebRtcCircleCoordinatesParam{
+						Latitude:  0,
+						Longitude: 0,
+						Radius:    0,
+					},
+				},
+				Method:    camara.WebRtcLocationDetailsMethodGps,
+				Shape:     camara.WebRtcLocationDetailsShapeCircle,
+				Timestamp: camara.Time(time.Now()),
 			},
 			MediaSessionID: camara.String("0AEE1B58BAEEDA3EABA42B32EBB3DFE07E9CFF402EAF9EED8EF"),
 			Offer: camara.SdpDescriptorParam{
@@ -62,7 +101,7 @@ func TestWebrtcSessionNewWithOptionalParams(t *testing.T) {
 }
 
 func TestWebrtcSessionGetWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -72,6 +111,27 @@ func TestWebrtcSessionGetWithOptionalParams(t *testing.T) {
 	}
 	client := camara.NewClient(
 		option.WithBaseURL(baseURL),
+		option.WithBearerToken("My Bearer Token"),
+		option.WithCustomerInsightsToken("My Customer Insights Token"),
+		option.WithDeviceSwapToken("My Device Swap Token"),
+		option.WithKYCAgeVerificationToken("My KYC Age Verification Token"),
+		option.WithKYCFillInToken("My KYC Fill In Token"),
+		option.WithKYCMatchToken("My KYC Match Token"),
+		option.WithTenureToken("My Tenure Token"),
+		option.WithNumberRecyclingToken("My Number Recycling Token"),
+		option.WithOtpValidationToken("My Otp Validation Token"),
+		option.WithCallForwardingSignalToken("My Call Forwarding Signal Token"),
+		option.WithDeviceLocationToken("My Device Location Token"),
+		option.WithPopulationDensityDataToken("My Population Density Data Token"),
+		option.WithRegionDeviceCountToken("My Region Device Count Token"),
+		option.WithWebRtcToken("My Web Rtc Token"),
+		option.WithConnectivityInsightsToken("My Connectivity Insights Token"),
+		option.WithQualityOnDemandToken("My Quality On Demand Token"),
+		option.WithDeviceIdentifierToken("My Device Identifier Token"),
+		option.WithSimSwapToken("My Sim Swap Token"),
+		option.WithDeviceRoamingStatusToken("My Device Roaming Status Token"),
+		option.WithDeviceReachabilityStatusToken("My Device Reachability Status Token"),
+		option.WithConnectedNetworkTypeToken("My Connected Network Type Token"),
 		option.WithDeviceLocationNotificationsAPIKey("My Device Location Notifications API Key"),
 		option.WithNotificationsAPIKey("My Notifications API Key"),
 		option.WithPopulationDensityDataNotificationsAPIKey("My Population Density Data Notifications API Key"),
@@ -99,7 +159,7 @@ func TestWebrtcSessionGetWithOptionalParams(t *testing.T) {
 }
 
 func TestWebrtcSessionDeleteWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -109,6 +169,27 @@ func TestWebrtcSessionDeleteWithOptionalParams(t *testing.T) {
 	}
 	client := camara.NewClient(
 		option.WithBaseURL(baseURL),
+		option.WithBearerToken("My Bearer Token"),
+		option.WithCustomerInsightsToken("My Customer Insights Token"),
+		option.WithDeviceSwapToken("My Device Swap Token"),
+		option.WithKYCAgeVerificationToken("My KYC Age Verification Token"),
+		option.WithKYCFillInToken("My KYC Fill In Token"),
+		option.WithKYCMatchToken("My KYC Match Token"),
+		option.WithTenureToken("My Tenure Token"),
+		option.WithNumberRecyclingToken("My Number Recycling Token"),
+		option.WithOtpValidationToken("My Otp Validation Token"),
+		option.WithCallForwardingSignalToken("My Call Forwarding Signal Token"),
+		option.WithDeviceLocationToken("My Device Location Token"),
+		option.WithPopulationDensityDataToken("My Population Density Data Token"),
+		option.WithRegionDeviceCountToken("My Region Device Count Token"),
+		option.WithWebRtcToken("My Web Rtc Token"),
+		option.WithConnectivityInsightsToken("My Connectivity Insights Token"),
+		option.WithQualityOnDemandToken("My Quality On Demand Token"),
+		option.WithDeviceIdentifierToken("My Device Identifier Token"),
+		option.WithSimSwapToken("My Sim Swap Token"),
+		option.WithDeviceRoamingStatusToken("My Device Roaming Status Token"),
+		option.WithDeviceReachabilityStatusToken("My Device Reachability Status Token"),
+		option.WithConnectedNetworkTypeToken("My Connected Network Type Token"),
 		option.WithDeviceLocationNotificationsAPIKey("My Device Location Notifications API Key"),
 		option.WithNotificationsAPIKey("My Notifications API Key"),
 		option.WithPopulationDensityDataNotificationsAPIKey("My Population Density Data Notifications API Key"),
@@ -136,7 +217,7 @@ func TestWebrtcSessionDeleteWithOptionalParams(t *testing.T) {
 }
 
 func TestWebrtcSessionUpdateStatusWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -146,6 +227,27 @@ func TestWebrtcSessionUpdateStatusWithOptionalParams(t *testing.T) {
 	}
 	client := camara.NewClient(
 		option.WithBaseURL(baseURL),
+		option.WithBearerToken("My Bearer Token"),
+		option.WithCustomerInsightsToken("My Customer Insights Token"),
+		option.WithDeviceSwapToken("My Device Swap Token"),
+		option.WithKYCAgeVerificationToken("My KYC Age Verification Token"),
+		option.WithKYCFillInToken("My KYC Fill In Token"),
+		option.WithKYCMatchToken("My KYC Match Token"),
+		option.WithTenureToken("My Tenure Token"),
+		option.WithNumberRecyclingToken("My Number Recycling Token"),
+		option.WithOtpValidationToken("My Otp Validation Token"),
+		option.WithCallForwardingSignalToken("My Call Forwarding Signal Token"),
+		option.WithDeviceLocationToken("My Device Location Token"),
+		option.WithPopulationDensityDataToken("My Population Density Data Token"),
+		option.WithRegionDeviceCountToken("My Region Device Count Token"),
+		option.WithWebRtcToken("My Web Rtc Token"),
+		option.WithConnectivityInsightsToken("My Connectivity Insights Token"),
+		option.WithQualityOnDemandToken("My Quality On Demand Token"),
+		option.WithDeviceIdentifierToken("My Device Identifier Token"),
+		option.WithSimSwapToken("My Sim Swap Token"),
+		option.WithDeviceRoamingStatusToken("My Device Roaming Status Token"),
+		option.WithDeviceReachabilityStatusToken("My Device Reachability Status Token"),
+		option.WithConnectedNetworkTypeToken("My Connected Network Type Token"),
 		option.WithDeviceLocationNotificationsAPIKey("My Device Location Notifications API Key"),
 		option.WithNotificationsAPIKey("My Notifications API Key"),
 		option.WithPopulationDensityDataNotificationsAPIKey("My Population Density Data Notifications API Key"),
@@ -163,6 +265,23 @@ func TestWebrtcSessionUpdateStatusWithOptionalParams(t *testing.T) {
 			MediaSessionInformation: camara.MediaSessionInformationParam{
 				Answer: camara.SdpDescriptorParam{
 					Sdp: camara.String("sdp"),
+				},
+				CallType: camara.MediaSessionInformationCallTypeRegular,
+				LocationDetails: camara.WebRtcLocationDetailsParam{
+					Confidence: camara.WebRtcLocationDetailsConfidenceParam{
+						Pdf:   "normal",
+						Value: camara.Float(0),
+					},
+					Coordinates: camara.WebRtcLocationDetailsCoordinatesUnionParam{
+						OfWebRtcCircleCoordinates: &camara.WebRtcCircleCoordinatesParam{
+							Latitude:  0,
+							Longitude: 0,
+							Radius:    0,
+						},
+					},
+					Method:    camara.WebRtcLocationDetailsMethodGps,
+					Shape:     camara.WebRtcLocationDetailsShapeCircle,
+					Timestamp: camara.Time(time.Now()),
 				},
 				MediaSessionID: camara.String("0AEE1B58BAEEDA3EABA42B32EBB3DFE07E9CFF402EAF9EED8EF"),
 				Offer: camara.SdpDescriptorParam{

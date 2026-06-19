@@ -16,6 +16,8 @@ import (
 	"github.com/stainless-sdks/camara-go/packages/respjson"
 )
 
+// Know Your Customer Fill-in
+//
 // KnowyourcustomerfillInService contains methods and other services that help with
 // interacting with the camara API.
 //
@@ -39,12 +41,12 @@ func NewKnowyourcustomerfillInService(opts ...option.RequestOption) (r Knowyourc
 // bound to the customer's phone number.
 func (r *KnowyourcustomerfillInService) New(ctx context.Context, params KnowyourcustomerfillInNewParams, opts ...option.RequestOption) (res *KnowyourcustomerfillInNewResponse, err error) {
 	if !param.IsOmitted(params.XCorrelator) {
-		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%s", params.XCorrelator.Value)))
+		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%v", params.XCorrelator.Value)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	path := "knowyourcustomerfill-in/fill-in"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 type KnowyourcustomerfillInNewResponse struct {
