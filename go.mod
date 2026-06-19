@@ -1,4 +1,4 @@
-module github.com/stainless-sdks/camara-go
+module github.com/andreibesleaga/camara-go
 
 go 1.22
 

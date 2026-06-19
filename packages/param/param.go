@@ -2,7 +2,7 @@ package param
 
 import (
 	"encoding/json"
-	"github.com/stainless-sdks/camara-go/internal/encoding/json/sentinel"
+	"github.com/andreibesleaga/camara-go/internal/encoding/json/sentinel"
 	"reflect"
 )
 

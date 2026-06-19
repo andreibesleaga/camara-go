@@ -3,8 +3,8 @@ package respjson_test
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/stainless-sdks/camara-go/internal/apijson"
-	rj "github.com/stainless-sdks/camara-go/packages/respjson"
+	"github.com/andreibesleaga/camara-go/internal/apijson"
+	rj "github.com/andreibesleaga/camara-go/packages/respjson"
 	"reflect"
 	"testing"
 )

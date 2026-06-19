@@ -1,8 +1,8 @@
 package sentinel_test
 
 import (
-	"github.com/stainless-sdks/camara-go/internal/encoding/json/sentinel"
-	"github.com/stainless-sdks/camara-go/packages/param"
+	"github.com/andreibesleaga/camara-go/internal/encoding/json/sentinel"
+	"github.com/andreibesleaga/camara-go/packages/param"
 	"reflect"
 	"slices"
 	"testing"

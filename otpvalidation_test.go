@@ -8,9 +8,9 @@ import (
 	"os"
 	"testing"
 
-	"github.com/stainless-sdks/camara-go"
-	"github.com/stainless-sdks/camara-go/internal/testutil"
-	"github.com/stainless-sdks/camara-go/option"
+	"github.com/andreibesleaga/camara-go"
+	"github.com/andreibesleaga/camara-go/internal/testutil"
+	"github.com/andreibesleaga/camara-go/option"
 )
 
 func TestOtpvalidationSendCodeWithOptionalParams(t *testing.T) {
