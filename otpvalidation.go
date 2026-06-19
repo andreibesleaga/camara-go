@@ -15,6 +15,8 @@ import (
 	"github.com/stainless-sdks/camara-go/packages/respjson"
 )
 
+// One Time Password SMS
+//
 // OtpvalidationService contains methods and other services that help with
 // interacting with the camara API.
 //
@@ -38,30 +40,30 @@ func NewOtpvalidationService(opts ...option.RequestOption) (r OtpvalidationServi
 // number.
 func (r *OtpvalidationService) SendCode(ctx context.Context, params OtpvalidationSendCodeParams, opts ...option.RequestOption) (res *OtpvalidationSendCodeResponse, err error) {
 	if !param.IsOmitted(params.XCorrelator) {
-		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%s", params.XCorrelator.Value)))
+		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%v", params.XCorrelator.Value)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	path := "otpvalidation/send-code"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Verifies the code is valid for the received authenticationId
 func (r *OtpvalidationService) ValidateCode(ctx context.Context, params OtpvalidationValidateCodeParams, opts ...option.RequestOption) (err error) {
 	if !param.IsOmitted(params.XCorrelator) {
-		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%s", params.XCorrelator.Value)))
+		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%v", params.XCorrelator.Value)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	path := "otpvalidation/validate-code"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, nil, opts...)
-	return
+	return err
 }
 
 // Structure to provide authentication identifier
 type OtpvalidationSendCodeResponse struct {
 	// unique id of the verification attempt the code belongs to.
-	AuthenticationID string `json:"authenticationId,required"`
+	AuthenticationID string `json:"authenticationId" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		AuthenticationID respjson.Field
@@ -80,12 +82,12 @@ type OtpvalidationSendCodeParams struct {
 	// Message template used to compose the content of the SMS sent to the phone
 	// number. It must include the following label indicating where to include the
 	// short code `{{code}}`
-	Message string `json:"message,required"`
+	Message string `json:"message" api:"required"`
 	// A public identifier addressing a telephone subscription. In mobile networks it
 	// corresponds to the MSISDN (Mobile Station International Subscriber Directory
 	// Number). In order to be globally unique it has to be formatted in international
 	// format, according to E.164 standard, prefixed with '+'.
-	PhoneNumber string            `json:"phoneNumber,required"`
+	PhoneNumber string            `json:"phoneNumber" api:"required"`
 	XCorrelator param.Opt[string] `header:"x-correlator,omitzero" json:"-"`
 	paramObj
 }
@@ -100,9 +102,9 @@ func (r *OtpvalidationSendCodeParams) UnmarshalJSON(data []byte) error {
 
 type OtpvalidationValidateCodeParams struct {
 	// unique id of the verification attempt the code belongs to.
-	AuthenticationID string `json:"authenticationId,required"`
+	AuthenticationID string `json:"authenticationId" api:"required"`
 	// temporal, short code to be validated
-	Code        string            `json:"code,required"`
+	Code        string            `json:"code" api:"required"`
 	XCorrelator param.Opt[string] `header:"x-correlator,omitzero" json:"-"`
 	paramObj
 }

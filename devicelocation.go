@@ -13,7 +13,8 @@ import (
 // automatically. You should not instantiate this service directly, and instead use
 // the [NewDevicelocationService] method instead.
 type DevicelocationService struct {
-	Options       []option.RequestOption
+	Options []option.RequestOption
+	// Device Geofencing Subscriptions
 	Subscriptions DevicelocationSubscriptionService
 }
 

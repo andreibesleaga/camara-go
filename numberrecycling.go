@@ -16,6 +16,8 @@ import (
 	"github.com/stainless-sdks/camara-go/packages/respjson"
 )
 
+// Number Recycling
+//
 // NumberrecyclingService contains methods and other services that help with
 // interacting with the camara API.
 //
@@ -38,18 +40,18 @@ func NewNumberrecyclingService(opts ...option.RequestOption) (r NumberrecyclingS
 // Check whether the subscriber of the phone number has changed.
 func (r *NumberrecyclingService) CheckSubscriberChange(ctx context.Context, params NumberrecyclingCheckSubscriberChangeParams, opts ...option.RequestOption) (res *NumberrecyclingCheckSubscriberChangeResponse, err error) {
 	if !param.IsOmitted(params.XCorrelator) {
-		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%s", params.XCorrelator.Value)))
+		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%v", params.XCorrelator.Value)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	path := "numberrecycling/check"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 type NumberrecyclingCheckSubscriberChangeResponse struct {
 	// Set to true (Boolean, not string) when there has been a change in the subscriber
 	// associated with the specific phone number after “specifiedDate”.
-	PhoneNumberRecycled bool `json:"phoneNumberRecycled,required"`
+	PhoneNumberRecycled bool `json:"phoneNumberRecycled" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		PhoneNumberRecycled respjson.Field
@@ -68,7 +70,7 @@ type NumberrecyclingCheckSubscriberChangeParams struct {
 	// Specified date to check whether there has been a change in the subscriber
 	// associated with the specific phone number, in RFC 3339 calendar date format
 	// (YYYY-MM-DD).
-	SpecifiedDate time.Time `json:"specifiedDate,required" format:"date"`
+	SpecifiedDate time.Time `json:"specifiedDate" api:"required" format:"date"`
 	// A public identifier addressing a telephone subscription. In mobile networks it
 	// corresponds to the MSISDN (Mobile Station International Subscriber Directory
 	// Number). In order to be globally unique it has to be formatted in international

@@ -16,6 +16,8 @@ import (
 	"github.com/stainless-sdks/camara-go/packages/respjson"
 )
 
+// Region Device Count
+//
 // RegiondevicecountService contains methods and other services that help with
 // interacting with the camara API.
 //
@@ -47,12 +49,12 @@ func NewRegiondevicecountService(opts ...option.RequestOption) (r Regiondeviceco
 //     time interval, it should be counted.
 func (r *RegiondevicecountService) GetCount(ctx context.Context, params RegiondevicecountGetCountParams, opts ...option.RequestOption) (res *RegiondevicecountGetCountResponse, err error) {
 	if !param.IsOmitted(params.XCorrelator) {
-		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%s", params.XCorrelator.Value)))
+		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%v", params.XCorrelator.Value)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	path := "regiondevicecount/count"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // RegionDeviceCount result
@@ -169,7 +171,7 @@ type RegiondevicecountGetCountParamsArea struct {
 	// is defined as a polygon.
 	//
 	// Any of "CIRCLE", "POLYGON".
-	AreaType string `json:"areaType,omitzero,required"`
+	AreaType string `json:"areaType,omitzero" api:"required"`
 	paramObj
 }
 
@@ -236,7 +238,7 @@ type RegiondevicecountGetCountParamsSinkCredential struct {
 	// ACCESSTOKEN for now
 	//
 	// Any of "PLAIN", "ACCESSTOKEN", "REFRESHTOKEN".
-	CredentialType string `json:"credentialType,omitzero,required"`
+	CredentialType string `json:"credentialType,omitzero" api:"required"`
 	paramObj
 }
 

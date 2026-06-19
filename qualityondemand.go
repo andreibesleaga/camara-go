@@ -16,6 +16,8 @@ import (
 	"github.com/stainless-sdks/camara-go/packages/respjson"
 )
 
+// QoS Profiles
+//
 // QualityondemandService contains methods and other services that help with
 // interacting with the camara API.
 //
@@ -42,16 +44,16 @@ func NewQualityondemandService(opts ...option.RequestOption) (r QualityondemandS
 // subjects associated with the access token.
 func (r *QualityondemandService) GetQosProfile(ctx context.Context, name string, query QualityondemandGetQosProfileParams, opts ...option.RequestOption) (res *QosProfile, err error) {
 	if !param.IsOmitted(query.XCorrelator) {
-		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%s", query.XCorrelator.Value)))
+		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%v", query.XCorrelator.Value)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	if name == "" {
 		err = errors.New("missing required name parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("qualityondemand/qos-profiles/%s", name)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Returns all QoS Profiles that match the given criteria. **NOTES:**
@@ -76,12 +78,12 @@ func (r *QualityondemandService) GetQosProfile(ctx context.Context, name string,
 //     [CAMARA API Design Guidelines](https://github.com/camaraproject/Commonalities/blob/r3.3/documentation/API-design-guidelines.md#post-or-get-for-transferring-sensitive-or-complex-data)
 func (r *QualityondemandService) GetQosProfiles(ctx context.Context, params QualityondemandGetQosProfilesParams, opts ...option.RequestOption) (res *[]QosProfile, err error) {
 	if !param.IsOmitted(params.XCorrelator) {
-		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%s", params.XCorrelator.Value)))
+		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%v", params.XCorrelator.Value)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	path := "qualityondemand/retrieve-qos-profiles"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Specification of duration
@@ -131,7 +133,7 @@ type QosProfile struct {
 	//   - Support for predefined profile names like `QOS_E`, `QOS_S`, `QOS_M`, and
 	//     `QOS_L`
 	//   - A searchable descriptive name
-	Name string `json:"name,required" format:"string"`
+	Name string `json:"name" api:"required" format:"string"`
 	// The current status of the QoS Profile
 	//
 	//   - `ACTIVE`- QoS Profile is available to be used
@@ -140,7 +142,7 @@ type QosProfile struct {
 	//     be deployed in new QoD sessions
 	//
 	// Any of "ACTIVE", "INACTIVE", "DEPRECATED".
-	Status QosProfileStatus `json:"status,required"`
+	Status QosProfileStatus `json:"status" api:"required"`
 	// A list of countries, and optionally networks, for which the API provider makes
 	// the profile available
 	CountryAvailability []QosProfileCountryAvailability `json:"countryAvailability"`
@@ -279,7 +281,7 @@ func (r *QosProfile) UnmarshalJSON(data []byte) error {
 type QosProfileCountryAvailability struct {
 	// The two letter ISO 3166-2 country code for the country in which the QoS profile
 	// is available in at least one network
-	CountryName string `json:"countryName,required"`
+	CountryName string `json:"countryName" api:"required"`
 	// A list of networks within the country for which the QoS profile is available
 	// from the API provider
 	Networks []string `json:"networks"`

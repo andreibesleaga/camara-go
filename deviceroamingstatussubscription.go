@@ -18,6 +18,8 @@ import (
 	"github.com/stainless-sdks/camara-go/packages/respjson"
 )
 
+// Device Roaming Status Subscriptions
+//
 // DeviceroamingstatusSubscriptionService contains methods and other services that
 // help with interacting with the camara API.
 //
@@ -40,54 +42,54 @@ func NewDeviceroamingstatusSubscriptionService(opts ...option.RequestOption) (r 
 // Create a device roaming status event subscription for a device
 func (r *DeviceroamingstatusSubscriptionService) New(ctx context.Context, params DeviceroamingstatusSubscriptionNewParams, opts ...option.RequestOption) (res *DeviceRoamingStatusSubscription, err error) {
 	if !param.IsOmitted(params.XCorrelator) {
-		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%s", params.XCorrelator.Value)))
+		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%v", params.XCorrelator.Value)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	path := "deviceroamingstatus/subscriptions"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // retrieve device roaming status subscription information for a given
 // subscription.
 func (r *DeviceroamingstatusSubscriptionService) Get(ctx context.Context, subscriptionID string, query DeviceroamingstatusSubscriptionGetParams, opts ...option.RequestOption) (res *DeviceRoamingStatusSubscription, err error) {
 	if !param.IsOmitted(query.XCorrelator) {
-		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%s", query.XCorrelator.Value)))
+		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%v", query.XCorrelator.Value)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	if subscriptionID == "" {
 		err = errors.New("missing required subscriptionId parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("deviceroamingstatus/subscriptions/%s", subscriptionID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Retrieve a list of device roaming status event subscription(s)
 func (r *DeviceroamingstatusSubscriptionService) List(ctx context.Context, query DeviceroamingstatusSubscriptionListParams, opts ...option.RequestOption) (res *[]DeviceRoamingStatusSubscription, err error) {
 	if !param.IsOmitted(query.XCorrelator) {
-		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%s", query.XCorrelator.Value)))
+		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%v", query.XCorrelator.Value)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	path := "deviceroamingstatus/subscriptions"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Delete a given device-roaming-status subscription by ID
 func (r *DeviceroamingstatusSubscriptionService) Delete(ctx context.Context, subscriptionID string, body DeviceroamingstatusSubscriptionDeleteParams, opts ...option.RequestOption) (res *DeviceroamingstatusSubscriptionDeleteResponse, err error) {
 	if !param.IsOmitted(body.XCorrelator) {
-		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%s", body.XCorrelator.Value)))
+		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%v", body.XCorrelator.Value)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	if subscriptionID == "" {
 		err = errors.New("missing required subscriptionId parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("deviceroamingstatus/subscriptions/%s", subscriptionID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Implementation-specific configuration parameters needed by the subscription
@@ -98,7 +100,7 @@ func (r *DeviceroamingstatusSubscriptionService) Delete(ctx context.Context, sub
 // parameters.
 type DeviceRoamingStatusConfig struct {
 	// The detail of the requested event subscription.
-	SubscriptionDetail DeviceRoamingStatusConfigSubscriptionDetail `json:"subscriptionDetail,required"`
+	SubscriptionDetail DeviceRoamingStatusConfigSubscriptionDetail `json:"subscriptionDetail" api:"required"`
 	// Set to `true` by API consumer if consumer wants to get an event as soon as the
 	// subscription is created and current situation reflects event request. Example:
 	// Consumer request Roaming event. If consumer sets initialEvent to true and device
@@ -283,7 +285,7 @@ func (r *DeviceRoamingStatusConfigSubscriptionDetailDeviceIpv4Address) Unmarshal
 // The property SubscriptionDetail is required.
 type DeviceRoamingStatusConfigParam struct {
 	// The detail of the requested event subscription.
-	SubscriptionDetail DeviceRoamingStatusConfigSubscriptionDetailParam `json:"subscriptionDetail,omitzero,required"`
+	SubscriptionDetail DeviceRoamingStatusConfigSubscriptionDetailParam `json:"subscriptionDetail,omitzero" api:"required"`
 	// Set to `true` by API consumer if consumer wants to get an event as soon as the
 	// subscription is created and current situation reflects event request. Example:
 	// Consumer request Roaming event. If consumer sets initialEvent to true and device
@@ -444,25 +446,25 @@ type DeviceRoamingStatusSubscription struct {
 	// manager. When this information is contained within an event notification, this
 	// concept SHALL be referred as subscriptionId as per Commonalities Event
 	// Notification Model.
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// Implementation-specific configuration parameters needed by the subscription
 	// manager for acquiring events. In CAMARA we have predefined attributes like
 	// `subscriptionExpireTime`, `subscriptionMaxEvents`, `initialEvent` Specific event
 	// type attributes must be defined in `subscriptionDetail` Note: if a request is
 	// performed for several event type, all subscribed event will use same `config`
 	// parameters.
-	Config DeviceRoamingStatusConfig `json:"config,required"`
+	Config DeviceRoamingStatusConfig `json:"config" api:"required"`
 	// Identifier of a delivery protocol. Only HTTP is allowed for now
 	//
 	// Any of "HTTP", "MQTT3", "MQTT5", "AMQP", "NATS", "KAFKA".
-	Protocol DeviceRoamingStatusProtocol `json:"protocol,required"`
+	Protocol DeviceRoamingStatusProtocol `json:"protocol" api:"required"`
 	// The address to which events shall be delivered using the selected protocol.
-	Sink string `json:"sink,required" format:"uri"`
+	Sink string `json:"sink" api:"required" format:"uri"`
 	// Camara Event types eligible to be delivered by this subscription. Note: for the
 	// Commonalities meta-release v0.4 we enforce to have only event type per
 	// subscription then for following meta-release use of array MUST be decided at API
 	// project level.
-	Types []DeviceRoamingStatusSubscriptionEventType `json:"types,required"`
+	Types []DeviceRoamingStatusSubscriptionEventType `json:"types" api:"required"`
 	// Date when the event subscription will expire. Only provided when
 	// `subscriptionExpireTime` is indicated by API client or Telco Operator has
 	// specific policy about that. It must follow
@@ -566,7 +568,7 @@ type DeviceroamingstatusSubscriptionDeleteResponse struct {
 	// manager. When this information is contained within an event notification, this
 	// concept SHALL be referred as subscriptionId as per Commonalities Event
 	// Notification Model.
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field
@@ -588,18 +590,18 @@ type DeviceroamingstatusSubscriptionNewParams struct {
 	// type attributes must be defined in `subscriptionDetail` Note: if a request is
 	// performed for several event type, all subscribed event will use same `config`
 	// parameters.
-	Config DeviceRoamingStatusConfigParam `json:"config,omitzero,required"`
+	Config DeviceRoamingStatusConfigParam `json:"config,omitzero" api:"required"`
 	// Identifier of a delivery protocol. Only HTTP is allowed for now
 	//
 	// Any of "HTTP", "MQTT3", "MQTT5", "AMQP", "NATS", "KAFKA".
-	Protocol DeviceRoamingStatusProtocol `json:"protocol,omitzero,required"`
+	Protocol DeviceRoamingStatusProtocol `json:"protocol,omitzero" api:"required"`
 	// The address to which events shall be delivered using the selected protocol.
-	Sink string `json:"sink,required" format:"uri"`
+	Sink string `json:"sink" api:"required" format:"uri"`
 	// Camara Event types eligible to be delivered by this subscription. Note: for the
 	// current Commonalities version (v0.5) only one event type per subscription is
 	// allowed, yet in the following releases use of array of event types SHALL be
 	// specified without changing this definition.
-	Types       []DeviceRoamingStatusSubscriptionEventType `json:"types,omitzero,required"`
+	Types       []DeviceRoamingStatusSubscriptionEventType `json:"types,omitzero" api:"required"`
 	XCorrelator param.Opt[string]                          `header:"x-correlator,omitzero" json:"-"`
 	// A sink credential provides authentication or authorization information necessary
 	// to enable delivery of events to a target.
@@ -624,7 +626,7 @@ type DeviceroamingstatusSubscriptionNewParamsSinkCredential struct {
 	// ACCESSTOKEN for now
 	//
 	// Any of "PLAIN", "ACCESSTOKEN", "REFRESHTOKEN".
-	CredentialType string `json:"credentialType,omitzero,required"`
+	CredentialType string `json:"credentialType,omitzero" api:"required"`
 	paramObj
 }
 

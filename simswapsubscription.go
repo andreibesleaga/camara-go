@@ -18,6 +18,8 @@ import (
 	"github.com/stainless-sdks/camara-go/packages/respjson"
 )
 
+// Sim Swap Subscriptions
+//
 // SimswapSubscriptionService contains methods and other services that help with
 // interacting with the camara API.
 //
@@ -40,53 +42,53 @@ func NewSimswapSubscriptionService(opts ...option.RequestOption) (r SimswapSubsc
 // Create a sim swap event subscription for a phone number
 func (r *SimswapSubscriptionService) New(ctx context.Context, params SimswapSubscriptionNewParams, opts ...option.RequestOption) (res *SimSwapSubscription, err error) {
 	if !param.IsOmitted(params.XCorrelator) {
-		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%s", params.XCorrelator.Value)))
+		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%v", params.XCorrelator.Value)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	path := "simswap/subscriptions"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // retrieve event subscription information for a given subscription.
 func (r *SimswapSubscriptionService) Get(ctx context.Context, subscriptionID string, query SimswapSubscriptionGetParams, opts ...option.RequestOption) (res *SimSwapSubscription, err error) {
 	if !param.IsOmitted(query.XCorrelator) {
-		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%s", query.XCorrelator.Value)))
+		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%v", query.XCorrelator.Value)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	if subscriptionID == "" {
 		err = errors.New("missing required subscriptionId parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("simswap/subscriptions/%s", subscriptionID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Retrieve a list of sim swap event subscription(s)
 func (r *SimswapSubscriptionService) List(ctx context.Context, query SimswapSubscriptionListParams, opts ...option.RequestOption) (res *[]SimSwapSubscription, err error) {
 	if !param.IsOmitted(query.XCorrelator) {
-		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%s", query.XCorrelator.Value)))
+		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%v", query.XCorrelator.Value)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	path := "simswap/subscriptions"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // delete a given event subscription.
 func (r *SimswapSubscriptionService) Delete(ctx context.Context, subscriptionID string, body SimswapSubscriptionDeleteParams, opts ...option.RequestOption) (res *SimswapSubscriptionDeleteResponse, err error) {
 	if !param.IsOmitted(body.XCorrelator) {
-		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%s", body.XCorrelator.Value)))
+		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%v", body.XCorrelator.Value)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	if subscriptionID == "" {
 		err = errors.New("missing required subscriptionId parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("simswap/subscriptions/%s", subscriptionID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Implementation-specific configuration parameters needed by the subscription
@@ -95,7 +97,7 @@ func (r *SimswapSubscriptionService) Delete(ctx context.Context, subscriptionID 
 // lifetime. Event type attributes must be defined in `subscriptionDetail`
 type SimSwapConfig struct {
 	// The detail of the requested event subscription
-	SubscriptionDetail SimSwapConfigSubscriptionDetail `json:"subscriptionDetail,required"`
+	SubscriptionDetail SimSwapConfigSubscriptionDetail `json:"subscriptionDetail" api:"required"`
 	// The subscription expiration time (in date-time format) requested by the API
 	// consumer. It must follow
 	// [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) and must
@@ -158,7 +160,7 @@ func (r *SimSwapConfigSubscriptionDetail) UnmarshalJSON(data []byte) error {
 // The property SubscriptionDetail is required.
 type SimSwapConfigParam struct {
 	// The detail of the requested event subscription
-	SubscriptionDetail SimSwapConfigSubscriptionDetailParam `json:"subscriptionDetail,omitzero,required"`
+	SubscriptionDetail SimSwapConfigSubscriptionDetailParam `json:"subscriptionDetail,omitzero" api:"required"`
 	// The subscription expiration time (in date-time format) requested by the API
 	// consumer. It must follow
 	// [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) and must
@@ -214,25 +216,25 @@ type SimSwapSubscription struct {
 	// manager. When this information is contained within an event notification, this
 	// concept SHALL be referred as subscriptionId as per Commonalities Event
 	// Notification Model.
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// Implementation-specific configuration parameters needed by the subscription
 	// manager for acquiring events. In CAMARA we have predefined attributes like
 	// `subscriptionExpireTime` or `subscriptionMaxEvents` to limit subscription
 	// lifetime. Event type attributes must be defined in `subscriptionDetail`
-	Config SimSwapConfig `json:"config,required"`
+	Config SimSwapConfig `json:"config" api:"required"`
 	// Identifier of a delivery protocol. Only HTTP is allowed for now
 	//
 	// Any of "HTTP", "MQTT3", "MQTT5", "AMQP", "NATS", "KAFKA".
-	Protocol SimSwapProtocol `json:"protocol,required"`
+	Protocol SimSwapProtocol `json:"protocol" api:"required"`
 	// The address to which events shall be delivered using the selected protocol.
-	Sink string `json:"sink,required" format:"uri"`
+	Sink string `json:"sink" api:"required" format:"uri"`
 	// Camara Event types eligible for subscription:
 	//
 	//   - org.camaraproject.sim-swap-subscriptions.v0.swapped: receive a notification
 	//     when a sim swap is performed on the line. Note: for the Commonalities
 	//     meta-release v0.4 we enforce to have only event type per subscription then for
 	//     following meta-release use of array MUST be decided at API project level.
-	Types []SimSwapSubscriptionEventType `json:"types,required"`
+	Types []SimSwapSubscriptionEventType `json:"types" api:"required"`
 	// Date when the event subscription will expire. Only provided when
 	// `subscriptionExpireTime` is indicated by API client or Telco Operator has
 	// specific policy about that. It must follow
@@ -341,18 +343,18 @@ type SimswapSubscriptionNewParams struct {
 	// manager for acquiring events. In CAMARA we have predefined attributes like
 	// `subscriptionExpireTime` or `subscriptionMaxEvents` to limit subscription
 	// lifetime. Event type attributes must be defined in `subscriptionDetail`
-	Config SimSwapConfigParam `json:"config,omitzero,required"`
+	Config SimSwapConfigParam `json:"config,omitzero" api:"required"`
 	// Identifier of a delivery protocol. Only HTTP is allowed for now
 	//
 	// Any of "HTTP", "MQTT3", "MQTT5", "AMQP", "NATS", "KAFKA".
-	Protocol SimSwapProtocol `json:"protocol,omitzero,required"`
+	Protocol SimSwapProtocol `json:"protocol,omitzero" api:"required"`
 	// The address to which events shall be delivered using the selected protocol.
-	Sink string `json:"sink,required" format:"uri"`
+	Sink string `json:"sink" api:"required" format:"uri"`
 	// Camara Event types eligible for subscription:
 	//
 	//   - org.camaraproject.sim-swap-subscriptions.v0.swapped: receive a notification
 	//     when a sim swap is performed on the line.
-	Types       []SimSwapSubscriptionEventType `json:"types,omitzero,required"`
+	Types       []SimSwapSubscriptionEventType `json:"types,omitzero" api:"required"`
 	XCorrelator param.Opt[string]              `header:"x-correlator,omitzero" json:"-"`
 	// A sink credential provides authentication or authorization information necessary
 	// to enable delivery of events to a target.
@@ -377,7 +379,7 @@ type SimswapSubscriptionNewParamsSinkCredential struct {
 	// ACCESSTOKEN.
 	//
 	// Any of "PLAIN", "ACCESSTOKEN", "REFRESHTOKEN".
-	CredentialType string `json:"credentialType,omitzero,required"`
+	CredentialType string `json:"credentialType,omitzero" api:"required"`
 	paramObj
 }
 

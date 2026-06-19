@@ -13,7 +13,8 @@ import (
 // automatically. You should not instantiate this service directly, and instead use
 // the [NewDeviceroamingstatusService] method instead.
 type DeviceroamingstatusService struct {
-	Options       []option.RequestOption
+	Options []option.RequestOption
+	// Device Roaming Status Subscriptions
 	Subscriptions DeviceroamingstatusSubscriptionService
 }
 

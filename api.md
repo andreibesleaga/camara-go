@@ -157,11 +157,17 @@ Params Types:
 
 - <a href="https://pkg.go.dev/github.com/stainless-sdks/camara-go">camara</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/camara-go#MediaSessionInformationParam">MediaSessionInformationParam</a>
 - <a href="https://pkg.go.dev/github.com/stainless-sdks/camara-go">camara</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/camara-go#SdpDescriptorParam">SdpDescriptorParam</a>
+- <a href="https://pkg.go.dev/github.com/stainless-sdks/camara-go">camara</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/camara-go#WebRtcCircleCoordinatesParam">WebRtcCircleCoordinatesParam</a>
+- <a href="https://pkg.go.dev/github.com/stainless-sdks/camara-go">camara</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/camara-go#WebRtcEllipsoidCoordinatesParam">WebRtcEllipsoidCoordinatesParam</a>
+- <a href="https://pkg.go.dev/github.com/stainless-sdks/camara-go">camara</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/camara-go#WebRtcLocationDetailsParam">WebRtcLocationDetailsParam</a>
 
 Response Types:
 
 - <a href="https://pkg.go.dev/github.com/stainless-sdks/camara-go">camara</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/camara-go#MediaSessionInformation">MediaSessionInformation</a>
 - <a href="https://pkg.go.dev/github.com/stainless-sdks/camara-go">camara</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/camara-go#SdpDescriptor">SdpDescriptor</a>
+- <a href="https://pkg.go.dev/github.com/stainless-sdks/camara-go">camara</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/camara-go#WebRtcCircleCoordinates">WebRtcCircleCoordinates</a>
+- <a href="https://pkg.go.dev/github.com/stainless-sdks/camara-go">camara</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/camara-go#WebRtcEllipsoidCoordinates">WebRtcEllipsoidCoordinates</a>
+- <a href="https://pkg.go.dev/github.com/stainless-sdks/camara-go">camara</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/camara-go#WebRtcLocationDetails">WebRtcLocationDetails</a>
 
 Methods:
 
@@ -217,10 +223,14 @@ Methods:
 
 Params Types:
 
+- <a href="https://pkg.go.dev/github.com/stainless-sdks/camara-go">camara</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/camara-go#DeviceIdentifierDeviceParam">DeviceIdentifierDeviceParam</a>
+- <a href="https://pkg.go.dev/github.com/stainless-sdks/camara-go">camara</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/camara-go#DeviceIdentifierDeviceIpv4AddrParam">DeviceIdentifierDeviceIpv4AddrParam</a>
 - <a href="https://pkg.go.dev/github.com/stainless-sdks/camara-go">camara</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/camara-go#DeviceIdentifierRequestBodyParam">DeviceIdentifierRequestBodyParam</a>
 
 Response Types:
 
+- <a href="https://pkg.go.dev/github.com/stainless-sdks/camara-go">camara</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/camara-go#DeviceIdentifierDevice">DeviceIdentifierDevice</a>
+- <a href="https://pkg.go.dev/github.com/stainless-sdks/camara-go">camara</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/camara-go#DeviceIdentifierDeviceIpv4Addr">DeviceIdentifierDeviceIpv4Addr</a>
 - <a href="https://pkg.go.dev/github.com/stainless-sdks/camara-go">camara</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/camara-go#DeviceidentifierGetIdentifierResponse">DeviceidentifierGetIdentifierResponse</a>
 - <a href="https://pkg.go.dev/github.com/stainless-sdks/camara-go">camara</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/camara-go#DeviceidentifierGetPpidResponse">DeviceidentifierGetPpidResponse</a>
 - <a href="https://pkg.go.dev/github.com/stainless-sdks/camara-go">camara</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/camara-go#DeviceidentifierGetTypeResponse">DeviceidentifierGetTypeResponse</a>

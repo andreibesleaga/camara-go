@@ -16,6 +16,8 @@ import (
 	"github.com/stainless-sdks/camara-go/packages/respjson"
 )
 
+// KYC Tenure
+//
 // TenureService contains methods and other services that help with interacting
 // with the camara API.
 //
@@ -40,18 +42,18 @@ func NewTenureService(opts ...option.RequestOption) (r TenureService) {
 // identifier.
 func (r *TenureService) Verify(ctx context.Context, params TenureVerifyParams, opts ...option.RequestOption) (res *TenureVerifyResponse, err error) {
 	if !param.IsOmitted(params.XCorrelator) {
-		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%s", params.XCorrelator.Value)))
+		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%v", params.XCorrelator.Value)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	path := "tenure/check-tenure"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 type TenureVerifyResponse struct {
 	// `true` when the identified mobile subscription has had valid tenure since
 	// `tenureDate`, otherwise `false`
-	TenureDateCheck bool `json:"tenureDateCheck,required"`
+	TenureDateCheck bool `json:"tenureDateCheck" api:"required"`
 	// If exists, populated with:
 	//
 	// - `PAYG` - prepaid (pay-as-you-go) account
@@ -98,7 +100,7 @@ type TenureVerifyParams struct {
 	// The date, in RFC 3339 / ISO 8601 compliant format "YYYY-MM-DD", from which
 	// continuous tenure of the identified network subscriber is required to be
 	// confirmed
-	TenureDate time.Time `json:"tenureDate,required" format:"date"`
+	TenureDate time.Time `json:"tenureDate" api:"required" format:"date"`
 	// A public identifier addressing a telephone subscription. In mobile networks it
 	// corresponds to the MSISDN (Mobile Station International Subscriber Directory
 	// Number). In order to be globally unique it has to be formatted in international

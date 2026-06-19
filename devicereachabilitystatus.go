@@ -13,7 +13,8 @@ import (
 // automatically. You should not instantiate this service directly, and instead use
 // the [NewDevicereachabilitystatusService] method instead.
 type DevicereachabilitystatusService struct {
-	Options       []option.RequestOption
+	Options []option.RequestOption
+	// Device Reachability Status Subscriptions
 	Subscriptions DevicereachabilitystatusSubscriptionService
 }
 

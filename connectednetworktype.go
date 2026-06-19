@@ -13,7 +13,8 @@ import (
 // automatically. You should not instantiate this service directly, and instead use
 // the [NewConnectednetworktypeService] method instead.
 type ConnectednetworktypeService struct {
-	Options       []option.RequestOption
+	Options []option.RequestOption
+	// Connected Network Type Subscriptions
 	Subscriptions ConnectednetworktypeSubscriptionService
 }
 

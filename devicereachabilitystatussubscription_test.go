@@ -15,7 +15,7 @@ import (
 )
 
 func TestDevicereachabilitystatusSubscriptionNewWithOptionalParams(t *testing.T) {
-	t.Skip("Prism doesn't support callbacks yet")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -25,6 +25,27 @@ func TestDevicereachabilitystatusSubscriptionNewWithOptionalParams(t *testing.T)
 	}
 	client := camara.NewClient(
 		option.WithBaseURL(baseURL),
+		option.WithBearerToken("My Bearer Token"),
+		option.WithCustomerInsightsToken("My Customer Insights Token"),
+		option.WithDeviceSwapToken("My Device Swap Token"),
+		option.WithKYCAgeVerificationToken("My KYC Age Verification Token"),
+		option.WithKYCFillInToken("My KYC Fill In Token"),
+		option.WithKYCMatchToken("My KYC Match Token"),
+		option.WithTenureToken("My Tenure Token"),
+		option.WithNumberRecyclingToken("My Number Recycling Token"),
+		option.WithOtpValidationToken("My Otp Validation Token"),
+		option.WithCallForwardingSignalToken("My Call Forwarding Signal Token"),
+		option.WithDeviceLocationToken("My Device Location Token"),
+		option.WithPopulationDensityDataToken("My Population Density Data Token"),
+		option.WithRegionDeviceCountToken("My Region Device Count Token"),
+		option.WithWebRtcToken("My Web Rtc Token"),
+		option.WithConnectivityInsightsToken("My Connectivity Insights Token"),
+		option.WithQualityOnDemandToken("My Quality On Demand Token"),
+		option.WithDeviceIdentifierToken("My Device Identifier Token"),
+		option.WithSimSwapToken("My Sim Swap Token"),
+		option.WithDeviceRoamingStatusToken("My Device Roaming Status Token"),
+		option.WithDeviceReachabilityStatusToken("My Device Reachability Status Token"),
+		option.WithConnectedNetworkTypeToken("My Connected Network Type Token"),
 		option.WithDeviceLocationNotificationsAPIKey("My Device Location Notifications API Key"),
 		option.WithNotificationsAPIKey("My Notifications API Key"),
 		option.WithPopulationDensityDataNotificationsAPIKey("My Population Density Data Notifications API Key"),
@@ -45,7 +66,7 @@ func TestDevicereachabilitystatusSubscriptionNewWithOptionalParams(t *testing.T)
 						PublicPort:     camara.Int(59765),
 					},
 					Ipv6Address:             camara.String("2001:db8:85a3:8d3:1319:8a2e:370:7344"),
-					NetworkAccessIdentifier: camara.String("123456789@domain.com"),
+					NetworkAccessIdentifier: camara.String("123456789@example.com"),
 					PhoneNumber:             camara.String("+123456789"),
 				},
 			},
@@ -71,7 +92,7 @@ func TestDevicereachabilitystatusSubscriptionNewWithOptionalParams(t *testing.T)
 }
 
 func TestDevicereachabilitystatusSubscriptionGetWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -81,6 +102,27 @@ func TestDevicereachabilitystatusSubscriptionGetWithOptionalParams(t *testing.T)
 	}
 	client := camara.NewClient(
 		option.WithBaseURL(baseURL),
+		option.WithBearerToken("My Bearer Token"),
+		option.WithCustomerInsightsToken("My Customer Insights Token"),
+		option.WithDeviceSwapToken("My Device Swap Token"),
+		option.WithKYCAgeVerificationToken("My KYC Age Verification Token"),
+		option.WithKYCFillInToken("My KYC Fill In Token"),
+		option.WithKYCMatchToken("My KYC Match Token"),
+		option.WithTenureToken("My Tenure Token"),
+		option.WithNumberRecyclingToken("My Number Recycling Token"),
+		option.WithOtpValidationToken("My Otp Validation Token"),
+		option.WithCallForwardingSignalToken("My Call Forwarding Signal Token"),
+		option.WithDeviceLocationToken("My Device Location Token"),
+		option.WithPopulationDensityDataToken("My Population Density Data Token"),
+		option.WithRegionDeviceCountToken("My Region Device Count Token"),
+		option.WithWebRtcToken("My Web Rtc Token"),
+		option.WithConnectivityInsightsToken("My Connectivity Insights Token"),
+		option.WithQualityOnDemandToken("My Quality On Demand Token"),
+		option.WithDeviceIdentifierToken("My Device Identifier Token"),
+		option.WithSimSwapToken("My Sim Swap Token"),
+		option.WithDeviceRoamingStatusToken("My Device Roaming Status Token"),
+		option.WithDeviceReachabilityStatusToken("My Device Reachability Status Token"),
+		option.WithConnectedNetworkTypeToken("My Connected Network Type Token"),
 		option.WithDeviceLocationNotificationsAPIKey("My Device Location Notifications API Key"),
 		option.WithNotificationsAPIKey("My Notifications API Key"),
 		option.WithPopulationDensityDataNotificationsAPIKey("My Population Density Data Notifications API Key"),
@@ -108,7 +150,7 @@ func TestDevicereachabilitystatusSubscriptionGetWithOptionalParams(t *testing.T)
 }
 
 func TestDevicereachabilitystatusSubscriptionListWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -118,6 +160,27 @@ func TestDevicereachabilitystatusSubscriptionListWithOptionalParams(t *testing.T
 	}
 	client := camara.NewClient(
 		option.WithBaseURL(baseURL),
+		option.WithBearerToken("My Bearer Token"),
+		option.WithCustomerInsightsToken("My Customer Insights Token"),
+		option.WithDeviceSwapToken("My Device Swap Token"),
+		option.WithKYCAgeVerificationToken("My KYC Age Verification Token"),
+		option.WithKYCFillInToken("My KYC Fill In Token"),
+		option.WithKYCMatchToken("My KYC Match Token"),
+		option.WithTenureToken("My Tenure Token"),
+		option.WithNumberRecyclingToken("My Number Recycling Token"),
+		option.WithOtpValidationToken("My Otp Validation Token"),
+		option.WithCallForwardingSignalToken("My Call Forwarding Signal Token"),
+		option.WithDeviceLocationToken("My Device Location Token"),
+		option.WithPopulationDensityDataToken("My Population Density Data Token"),
+		option.WithRegionDeviceCountToken("My Region Device Count Token"),
+		option.WithWebRtcToken("My Web Rtc Token"),
+		option.WithConnectivityInsightsToken("My Connectivity Insights Token"),
+		option.WithQualityOnDemandToken("My Quality On Demand Token"),
+		option.WithDeviceIdentifierToken("My Device Identifier Token"),
+		option.WithSimSwapToken("My Sim Swap Token"),
+		option.WithDeviceRoamingStatusToken("My Device Roaming Status Token"),
+		option.WithDeviceReachabilityStatusToken("My Device Reachability Status Token"),
+		option.WithConnectedNetworkTypeToken("My Connected Network Type Token"),
 		option.WithDeviceLocationNotificationsAPIKey("My Device Location Notifications API Key"),
 		option.WithNotificationsAPIKey("My Notifications API Key"),
 		option.WithPopulationDensityDataNotificationsAPIKey("My Population Density Data Notifications API Key"),
@@ -141,7 +204,7 @@ func TestDevicereachabilitystatusSubscriptionListWithOptionalParams(t *testing.T
 }
 
 func TestDevicereachabilitystatusSubscriptionDeleteWithOptionalParams(t *testing.T) {
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -151,6 +214,27 @@ func TestDevicereachabilitystatusSubscriptionDeleteWithOptionalParams(t *testing
 	}
 	client := camara.NewClient(
 		option.WithBaseURL(baseURL),
+		option.WithBearerToken("My Bearer Token"),
+		option.WithCustomerInsightsToken("My Customer Insights Token"),
+		option.WithDeviceSwapToken("My Device Swap Token"),
+		option.WithKYCAgeVerificationToken("My KYC Age Verification Token"),
+		option.WithKYCFillInToken("My KYC Fill In Token"),
+		option.WithKYCMatchToken("My KYC Match Token"),
+		option.WithTenureToken("My Tenure Token"),
+		option.WithNumberRecyclingToken("My Number Recycling Token"),
+		option.WithOtpValidationToken("My Otp Validation Token"),
+		option.WithCallForwardingSignalToken("My Call Forwarding Signal Token"),
+		option.WithDeviceLocationToken("My Device Location Token"),
+		option.WithPopulationDensityDataToken("My Population Density Data Token"),
+		option.WithRegionDeviceCountToken("My Region Device Count Token"),
+		option.WithWebRtcToken("My Web Rtc Token"),
+		option.WithConnectivityInsightsToken("My Connectivity Insights Token"),
+		option.WithQualityOnDemandToken("My Quality On Demand Token"),
+		option.WithDeviceIdentifierToken("My Device Identifier Token"),
+		option.WithSimSwapToken("My Sim Swap Token"),
+		option.WithDeviceRoamingStatusToken("My Device Roaming Status Token"),
+		option.WithDeviceReachabilityStatusToken("My Device Reachability Status Token"),
+		option.WithConnectedNetworkTypeToken("My Connected Network Type Token"),
 		option.WithDeviceLocationNotificationsAPIKey("My Device Location Notifications API Key"),
 		option.WithNotificationsAPIKey("My Notifications API Key"),
 		option.WithPopulationDensityDataNotificationsAPIKey("My Population Density Data Notifications API Key"),

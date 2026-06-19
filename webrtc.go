@@ -13,7 +13,8 @@ import (
 // automatically. You should not instantiate this service directly, and instead use
 // the [NewWebrtcService] method instead.
 type WebrtcService struct {
-	Options  []option.RequestOption
+	Options []option.RequestOption
+	// WebRTC Call Handling
 	Sessions WebrtcSessionService
 }
 

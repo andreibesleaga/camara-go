@@ -14,6 +14,7 @@ import (
 // the [NewCustomerinsightService] method instead.
 type CustomerinsightService struct {
 	Options []option.RequestOption
+	// Customer Insights
 	Scoring CustomerinsightScoringService
 }
 

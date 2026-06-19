@@ -16,6 +16,8 @@ import (
 	"github.com/stainless-sdks/camara-go/packages/respjson"
 )
 
+// Know Your Customer Age Verification
+//
 // KnowyourcustomerageverificationService contains methods and other services that
 // help with interacting with the camara API.
 //
@@ -62,12 +64,12 @@ func NewKnowyourcustomerageverificationService(opts ...option.RequestOption) (r 
 // any case.
 func (r *KnowyourcustomerageverificationService) Verify(ctx context.Context, params KnowyourcustomerageverificationVerifyParams, opts ...option.RequestOption) (res *KnowyourcustomerageverificationVerifyResponse, err error) {
 	if !param.IsOmitted(params.XCorrelator) {
-		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%s", params.XCorrelator.Value)))
+		opts = append(opts, option.WithHeader("x-correlator", fmt.Sprintf("%v", params.XCorrelator.Value)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	path := "knowyourcustomerageverification/verify"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
-	return
+	return res, err
 }
 
 // Response to an age verification request
@@ -78,7 +80,7 @@ type KnowyourcustomerageverificationVerifyResponse struct {
 	// `not_available` can be returned.
 	//
 	// Any of "true", "false", "not_available".
-	AgeCheck KnowyourcustomerageverificationVerifyResponseAgeCheck `json:"ageCheck,required"`
+	AgeCheck KnowyourcustomerageverificationVerifyResponseAgeCheck `json:"ageCheck" api:"required"`
 	// Indicate `"true"` if the subscription associated with the phone number has any
 	// kind of content lock (i.e certain web content blocked) and `"false"` if not. If
 	// the information is not available the value `not_available` can be returned.
@@ -160,7 +162,7 @@ type KnowyourcustomerageverificationVerifyParams struct {
 	// range might be more restrictive in some implementations due to local regulations
 	// of a country i.e. A country does not allow to request for an age under 18. This
 	// limitation must be informed during the onboarding process.
-	AgeThreshold int64 `json:"ageThreshold,required"`
+	AgeThreshold int64 `json:"ageThreshold" api:"required"`
 	// The birthdate of the customer, in RFC 3339 / ISO 8601 calendar date format
 	// (YYYY-MM-DD).
 	Birthdate param.Opt[time.Time] `json:"birthdate,omitzero" format:"date"`

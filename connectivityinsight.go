@@ -13,7 +13,8 @@ import (
 // automatically. You should not instantiate this service directly, and instead use
 // the [NewConnectivityinsightService] method instead.
 type ConnectivityinsightService struct {
-	Options       []option.RequestOption
+	Options []option.RequestOption
+	// Connectivity Insights Subscriptions
 	Subscriptions ConnectivityinsightSubscriptionService
 }
 
