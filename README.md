@@ -11,6 +11,8 @@ from applications written in Go.
 
 It is generated with [Stainless](https://www.stainless.com/).
 
+API Reference: https://github.com/andreibesleaga/camara-api-reference
+
 ## MCP Server
 
 Use the Camara MCP Server to enable AI assistants to interact with this API, allowing them to explore endpoints, make test requests, and use documentation to help integrate this SDK into your application.
