@@ -3,8 +3,8 @@
 package camara
 
 import (
-	"github.com/stainless-sdks/camara-go/internal/apierror"
-	"github.com/stainless-sdks/camara-go/packages/param"
+	"github.com/andreibesleaga/camara-go/internal/apierror"
+	"github.com/andreibesleaga/camara-go/packages/param"
 )
 
 // aliased to make [param.APIUnion] private when embedding

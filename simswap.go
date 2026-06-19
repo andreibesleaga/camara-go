@@ -3,7 +3,7 @@
 package camara
 
 import (
-	"github.com/stainless-sdks/camara-go/option"
+	"github.com/andreibesleaga/camara-go/option"
 )
 
 // SimswapService contains methods and other services that help with interacting

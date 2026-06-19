@@ -1,7 +1,7 @@
 package apijson
 
 import (
-	"github.com/stainless-sdks/camara-go/packages/respjson"
+	"github.com/andreibesleaga/camara-go/packages/respjson"
 	"reflect"
 )
 

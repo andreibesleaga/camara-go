@@ -13,7 +13,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/stainless-sdks/camara-go/packages/param"
+	"github.com/andreibesleaga/camara-go/packages/param"
 )
 
 var encoders sync.Map // map[encoderEntry]encoderFunc

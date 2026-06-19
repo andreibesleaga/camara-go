@@ -7,8 +7,8 @@ import (
 	"testing"
 	"time"
 
-	shimjson "github.com/stainless-sdks/camara-go/internal/encoding/json"
-	"github.com/stainless-sdks/camara-go/packages/param"
+	shimjson "github.com/andreibesleaga/camara-go/internal/encoding/json"
+	"github.com/andreibesleaga/camara-go/packages/param"
 )
 
 type Struct struct {

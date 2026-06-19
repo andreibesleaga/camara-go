@@ -1,8 +1,8 @@
 package paramutil
 
 import (
-	"github.com/stainless-sdks/camara-go/packages/param"
-	"github.com/stainless-sdks/camara-go/packages/respjson"
+	"github.com/andreibesleaga/camara-go/packages/param"
+	"github.com/andreibesleaga/camara-go/packages/respjson"
 )
 
 func AddrIfPresent[T comparable](v param.Opt[T]) *T {

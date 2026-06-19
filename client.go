@@ -9,8 +9,8 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/stainless-sdks/camara-go/internal/requestconfig"
-	"github.com/stainless-sdks/camara-go/option"
+	"github.com/andreibesleaga/camara-go/internal/requestconfig"
+	"github.com/andreibesleaga/camara-go/option"
 )
 
 // Client creates a struct with services and top level methods that help with

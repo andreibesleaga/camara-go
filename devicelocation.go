@@ -3,7 +3,7 @@
 package camara
 
 import (
-	"github.com/stainless-sdks/camara-go/option"
+	"github.com/andreibesleaga/camara-go/option"
 )
 
 // DevicelocationService contains methods and other services that help with

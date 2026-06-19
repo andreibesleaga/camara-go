@@ -2,7 +2,7 @@ package apiform
 
 import (
 	"bytes"
-	"github.com/stainless-sdks/camara-go/packages/param"
+	"github.com/andreibesleaga/camara-go/packages/param"
 	"io"
 	"mime/multipart"
 	"strings"
